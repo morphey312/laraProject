@@ -1,53 +1,146 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-      <router-link :to="{ name: 'home' }" class="navbar-brand"
-        >Laravel-Vue SPA</router-link
-      >
-      <button
-        class="navbar-toggler"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbarCollapse" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              data-toggle="collapse"
-              :to="{ name: 'home' }"
-            >
-              Home
-            </router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              data-toggle="collapse"
-              :to="{ name: 'about' }"
-            >
-              About
-            </router-link>
-          </li>
-        </ul>
+<div>
+      <!---header---->
+      <div class="header">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html"><img src="/storage/images/logo.jpg" title="" /></a>
+          </div>
+          <!---start-top-nav---->
+          <div class="top-menu">
+            <div class="search">
+              <form>
+                <input type="text" placeholder="" required="" />
+                <input type="submit" value="" />
+              </form>
+            </div>
+            <span class="menu"> </span>
+            <ul>
+              <li class="active"><a href="index.html">HOME</a></li>
+              <li><a href="about.html">ABOUT</a></li>
+              <li><a href="contact.html">CONTACT</a></li>
+              <div class="clearfix"></div>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <!---//End-top-nav---->
+        </div>
       </div>
-    </nav>
-
-    <div class="container">
-      <router-view></router-view>
-    </div>
-  </div>
+      <!--/header-->
+      <div class="content">
+        <div class="container">
+          <div class="content-grids">
+            <div class="col-md-8 content-main">
+              <div class="content-grid">
+                <div class="content-grid-info">
+                  <img src="/storage/images/post1.jpg" alt="" />
+                  <div class="post-info">
+                    <h4>
+                      <a href="single.html">Lorem ipsum dolor sit amet</a> July 30,
+                      2014 / 27 Comments
+                    </h4>
+                    <p>
+                      Praesent dapibus, neque id cursus faucibus, tortor neque
+                      egestas augue, eu vulputate magna eros eu erat. Aliquam erat
+                      volutpat. Nam dui mi, tincidunt quis.
+                    </p>
+                    <a href="single.html"><span></span>READ MORE</a>
+                  </div>
+                </div>
+                <div class="content-grid-info">
+                  <img src="/storage/images/post2.jpg" alt="" />
+                  <div class="post-info">
+                    <h4>
+                      <a href="single.html">Lorem ipsum dolor sit amet</a> July 30,
+                      2014 / 27 Comments
+                    </h4>
+                    <p>
+                      Praesent dapibus, neque id cursus faucibus, tortor neque
+                      egestas augue, eu vulputate magna eros eu erat. Aliquam erat
+                      volutpat. Nam dui mi, tincidunt quis.
+                    </p>
+                    <a href="single.html"><span></span>READ MORE</a>
+                  </div>
+                </div>
+                <div class="content-grid-info">
+                  <img src="/storage/images/post3.jpg" alt="" />
+                  <div class="post-info">
+                    <h4>
+                      <a href="single.html">Lorem ipsum dolor sit amet</a> July 30,
+                      2014 / 27 Comments
+                    </h4>
+                    <p>
+                      Praesent dapibus, neque id cursus faucibus, tortor neque
+                      egestas augue, eu vulputate magna eros eu erat. Aliquam erat
+                      volutpat. Nam dui mi, tincidunt quis.
+                    </p>
+                    <a href="single.html"><span></span>READ MORE</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 content-right">
+              <div class="recent">
+                <h3>RECENT POSTS</h3>
+                <ul>
+                  <li><a href="#">Aliquam tincidunt mauris</a></li>
+                  <li><a href="#">Vestibulum auctor dapibus lipsum</a></li>
+                  <li><a href="#">Nunc dignissim risus consecu</a></li>
+                  <li><a href="#">Cras ornare tristiqu</a></li>
+                </ul>
+              </div>
+              <div class="comments">
+                <h3>RECENT COMMENTS</h3>
+                <ul>
+                  <li>
+                    <a href="#">Amada Doe </a> on <a href="#">Hello World!</a>
+                  </li>
+                  <li>
+                    <a href="#">Peter Doe </a> on <a href="#"> Photography</a>
+                  </li>
+                  <li>
+                    <a href="#">Steve Roberts </a> on <a href="#">HTML5/CSS3</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="clearfix"></div>
+              <div class="archives">
+                <h3>ARCHIVES</h3>
+                <ul>
+                  <li><a href="#">October 2013</a></li>
+                  <li><a href="#">September 2013</a></li>
+                  <li><a href="#">August 2013</a></li>
+                  <li><a href="#">July 2013</a></li>
+                </ul>
+              </div>
+              <div class="categories">
+                <h3>CATEGORIES</h3>
+                <ul>
+                  <li><a href="#">Vivamus vestibulum nulla</a></li>
+                  <li><a href="#">Integer vitae libero ac risus e</a></li>
+                  <li><a href="#">Vestibulum commo</a></li>
+                  <li><a href="#">Cras iaculis ultricies</a></li>
+                </ul>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <div class="footer">
+        <div class="container">
+          <p>
+            Copyrights © 2015 Blog All rights reserved | Template by
+            <a href="http://w3layouts.com/">W3layouts</a>
+          </p>
+        </div>
+      </div>
+</div>
 </template>
 
 <script>
 export default {
-  watch: {
-    $route() {
-      $("#navbarCollapse").collapse("hide");
-    },
-  },
 };
 </script>

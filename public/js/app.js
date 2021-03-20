@@ -1924,13 +1924,110 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  watch: {
-    $route: function $route() {
-      $("#navbarCollapse").collapse("hide");
-    }
-  }
-});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
 
@@ -2083,6 +2180,233 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/easing.js":
+/*!********************************!*\
+  !*** ./resources/js/easing.js ***!
+  \********************************/
+/***/ (() => {
+
+/*
+ * jQuery EasIng v1.1.2 - http://gsgd.co.uk/sandbox/jquery.easIng.php
+ *
+ * Uses the built In easIng capabilities added In jQuery 1.1
+ * to offer multiple easIng options
+ *
+ * Copyright (c) 2007 George Smith
+ * Licensed under the MIT License:
+ *   http://www.opensource.org/licenses/mit-license.php
+ */
+// t: current time, b: begInnIng value, c: change In value, d: duration
+jQuery.extend(jQuery.easing, {
+  easeInQuad: function easeInQuad(x, t, b, c, d) {
+    return c * (t /= d) * t + b;
+  },
+  easeOutQuad: function easeOutQuad(x, t, b, c, d) {
+    return -c * (t /= d) * (t - 2) + b;
+  },
+  easeInOutQuad: function easeInOutQuad(x, t, b, c, d) {
+    if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+    return -c / 2 * (--t * (t - 2) - 1) + b;
+  },
+  easeInCubic: function easeInCubic(x, t, b, c, d) {
+    return c * (t /= d) * t * t + b;
+  },
+  easeOutCubic: function easeOutCubic(x, t, b, c, d) {
+    return c * ((t = t / d - 1) * t * t + 1) + b;
+  },
+  easeInOutCubic: function easeInOutCubic(x, t, b, c, d) {
+    if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+    return c / 2 * ((t -= 2) * t * t + 2) + b;
+  },
+  easeInQuart: function easeInQuart(x, t, b, c, d) {
+    return c * (t /= d) * t * t * t + b;
+  },
+  easeOutQuart: function easeOutQuart(x, t, b, c, d) {
+    return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+  },
+  easeInOutQuart: function easeInOutQuart(x, t, b, c, d) {
+    if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+    return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+  },
+  easeInQuint: function easeInQuint(x, t, b, c, d) {
+    return c * (t /= d) * t * t * t * t + b;
+  },
+  easeOutQuint: function easeOutQuint(x, t, b, c, d) {
+    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+  },
+  easeInOutQuint: function easeInOutQuint(x, t, b, c, d) {
+    if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+    return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+  },
+  easeInSine: function easeInSine(x, t, b, c, d) {
+    return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+  },
+  easeOutSine: function easeOutSine(x, t, b, c, d) {
+    return c * Math.sin(t / d * (Math.PI / 2)) + b;
+  },
+  easeInOutSine: function easeInOutSine(x, t, b, c, d) {
+    return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+  },
+  easeInExpo: function easeInExpo(x, t, b, c, d) {
+    return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+  },
+  easeOutExpo: function easeOutExpo(x, t, b, c, d) {
+    return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+  },
+  easeInOutExpo: function easeInOutExpo(x, t, b, c, d) {
+    if (t == 0) return b;
+    if (t == d) return b + c;
+    if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+    return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+  },
+  easeInCirc: function easeInCirc(x, t, b, c, d) {
+    return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+  },
+  easeOutCirc: function easeOutCirc(x, t, b, c, d) {
+    return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+  },
+  easeInOutCirc: function easeInOutCirc(x, t, b, c, d) {
+    if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+    return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+  },
+  easeInElastic: function easeInElastic(x, t, b, c, d) {
+    var s = 1.70158;
+    var p = 0;
+    var a = c;
+    if (t == 0) return b;
+    if ((t /= d) == 1) return b + c;
+    if (!p) p = d * .3;
+
+    if (a < Math.abs(c)) {
+      a = c;
+      var s = p / 4;
+    } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+
+    return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+  },
+  easeOutElastic: function easeOutElastic(x, t, b, c, d) {
+    var s = 1.70158;
+    var p = 0;
+    var a = c;
+    if (t == 0) return b;
+    if ((t /= d) == 1) return b + c;
+    if (!p) p = d * .3;
+
+    if (a < Math.abs(c)) {
+      a = c;
+      var s = p / 4;
+    } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+
+    return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+  },
+  easeInOutElastic: function easeInOutElastic(x, t, b, c, d) {
+    var s = 1.70158;
+    var p = 0;
+    var a = c;
+    if (t == 0) return b;
+    if ((t /= d / 2) == 2) return b + c;
+    if (!p) p = d * (.3 * 1.5);
+
+    if (a < Math.abs(c)) {
+      a = c;
+      var s = p / 4;
+    } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+
+    if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+    return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+  },
+  easeInBack: function easeInBack(x, t, b, c, d, s) {
+    if (s == undefined) s = 1.70158;
+    return c * (t /= d) * t * ((s + 1) * t - s) + b;
+  },
+  easeOutBack: function easeOutBack(x, t, b, c, d, s) {
+    if (s == undefined) s = 1.70158;
+    return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+  },
+  easeInOutBack: function easeInOutBack(x, t, b, c, d, s) {
+    if (s == undefined) s = 1.70158;
+    if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+    return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+  },
+  easeInBounce: function easeInBounce(x, t, b, c, d) {
+    return c - jQuery.easing.easeOutBounce(x, d - t, 0, c, d) + b;
+  },
+  easeOutBounce: function easeOutBounce(x, t, b, c, d) {
+    if ((t /= d) < 1 / 2.75) {
+      return c * (7.5625 * t * t) + b;
+    } else if (t < 2 / 2.75) {
+      return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+    } else if (t < 2.5 / 2.75) {
+      return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+    } else {
+      return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+    }
+  },
+  easeInOutBounce: function easeInOutBounce(x, t, b, c, d) {
+    if (t < d / 2) return jQuery.easing.easeInBounce(x, t * 2, 0, c, d) * .5 + b;
+    return jQuery.easing.easeOutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/move-top.js":
+/*!**********************************!*\
+  !*** ./resources/js/move-top.js ***!
+  \**********************************/
+/***/ (() => {
+
+/* UItoTop jQuery Plugin 1.2 | Matt Varone | http://www.mattvarone.com/web-design/uitotop-jquery-plugin */
+(function ($) {
+  $.fn.UItoTop = function (options) {
+    var defaults = {
+      text: 'To Top',
+      min: 200,
+      inDelay: 600,
+      outDelay: 400,
+      containerID: 'toTop',
+      containerHoverID: 'toTopHover',
+      scrollSpeed: 1200,
+      easingType: 'linear'
+    },
+        settings = $.extend(defaults, options),
+        containerIDhash = '#' + settings.containerID,
+        containerHoverIDHash = '#' + settings.containerHoverID;
+    $('body').append('<a href="#" id="' + settings.containerID + '">' + settings.text + '</a>');
+    $(containerIDhash).hide().on('click.UItoTop', function () {
+      $('html, body').animate({
+        scrollTop: 0
+      }, settings.scrollSpeed, settings.easingType);
+      $('#' + settings.containerHoverID, this).stop().animate({
+        'opacity': 0
+      }, settings.inDelay, settings.easingType);
+      return false;
+    }).prepend('<span id="' + settings.containerHoverID + '"></span>').hover(function () {
+      $(containerHoverIDHash, this).stop().animate({
+        'opacity': 1
+      }, 600, 'linear');
+    }, function () {
+      $(containerHoverIDHash, this).stop().animate({
+        'opacity': 0
+      }, 700, 'linear');
+    });
+    $(window).scroll(function () {
+      var sd = $(window).scrollTop();
+
+      if (typeof document.body.style.maxHeight === "undefined") {
+        $(containerIDhash).css({
+          'position': 'absolute',
+          'top': sd + $(window).height() - 50
+        });
+      }
+
+      if (sd > settings.min) $(containerIDhash).fadeIn(settings.inDelay);else $(containerIDhash).fadeOut(settings.Outdelay);
+    });
+  };
+})(jQuery);
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -2119,6 +2443,26 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__.default({
   routes: routes
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
+
+/***/ }),
+
+/***/ "./resources/js/snapMenu.js":
+/*!**********************************!*\
+  !*** ./resources/js/snapMenu.js ***!
+  \**********************************/
+/***/ (() => {
+
+$("span.menu").click(function () {
+  $(".top-menu ul").slideToggle("slow", function () {});
+});
+$(document).ready(function ($) {
+  $(".scroll").click(function (event) {
+    event.preventDefault();
+    $('html,body').animate({
+      scrollTop: $(this.hash).offset().top
+    }, 900);
+  });
+});
 
 /***/ }),
 
@@ -37857,86 +38201,285 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "nav",
-      {
-        staticClass: "navbar navbar-expand-md navbar-light bg-white shadow-sm"
-      },
-      [
-        _c(
-          "router-link",
-          { staticClass: "navbar-brand", attrs: { to: { name: "home" } } },
-          [_vm._v("Laravel-Vue SPA")]
-        ),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "collapse navbar-collapse",
-            attrs: { id: "navbarCollapse" }
-          },
-          [
-            _c("ul", { staticClass: "navbar-nav" }, [
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { "data-toggle": "collapse", to: { name: "home" } }
-                    },
-                    [_vm._v("\n            Home\n          ")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: {
-                        "data-toggle": "collapse",
-                        to: { name: "about" }
-                      }
-                    },
-                    [_vm._v("\n            About\n          ")]
-                  )
-                ],
-                1
-              )
-            ])
-          ]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [_c("router-view")], 1)
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "navbar-toggler",
-        attrs: { "data-toggle": "collapse", "data-target": "#navbarCollapse" }
-      },
-      [_c("span", { staticClass: "navbar-toggler-icon" })]
-    )
+    return _c("div", [
+      _c("div", { staticClass: "header" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "logo" }, [
+            _c("a", { attrs: { href: "index.html" } }, [
+              _c("img", {
+                attrs: { src: "/storage/images/logo.jpg", title: "" }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "top-menu" }, [
+            _c("div", { staticClass: "search" }, [
+              _c("form", [
+                _c("input", {
+                  attrs: { type: "text", placeholder: "", required: "" }
+                }),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "submit", value: "" } })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "menu" }),
+            _vm._v(" "),
+            _c("ul", [
+              _c("li", { staticClass: "active" }, [
+                _c("a", { attrs: { href: "index.html" } }, [_vm._v("HOME")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "about.html" } }, [_vm._v("ABOUT")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "contact.html" } }, [
+                  _vm._v("CONTACT")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clearfix" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "content-grids" }, [
+            _c("div", { staticClass: "col-md-8 content-main" }, [
+              _c("div", { staticClass: "content-grid" }, [
+                _c("div", { staticClass: "content-grid-info" }, [
+                  _c("img", {
+                    attrs: { src: "/storage/images/post1.jpg", alt: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "post-info" }, [
+                    _c("h4", [
+                      _c("a", { attrs: { href: "single.html" } }, [
+                        _vm._v("Lorem ipsum dolor sit amet")
+                      ]),
+                      _vm._v(
+                        " July 30,\n                      2014 / 27 Comments\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "\n                      Praesent dapibus, neque id cursus faucibus, tortor neque\n                      egestas augue, eu vulputate magna eros eu erat. Aliquam erat\n                      volutpat. Nam dui mi, tincidunt quis.\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("a", { attrs: { href: "single.html" } }, [
+                      _c("span"),
+                      _vm._v("READ MORE")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-grid-info" }, [
+                  _c("img", {
+                    attrs: { src: "/storage/images/post2.jpg", alt: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "post-info" }, [
+                    _c("h4", [
+                      _c("a", { attrs: { href: "single.html" } }, [
+                        _vm._v("Lorem ipsum dolor sit amet")
+                      ]),
+                      _vm._v(
+                        " July 30,\n                      2014 / 27 Comments\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "\n                      Praesent dapibus, neque id cursus faucibus, tortor neque\n                      egestas augue, eu vulputate magna eros eu erat. Aliquam erat\n                      volutpat. Nam dui mi, tincidunt quis.\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("a", { attrs: { href: "single.html" } }, [
+                      _c("span"),
+                      _vm._v("READ MORE")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content-grid-info" }, [
+                  _c("img", {
+                    attrs: { src: "/storage/images/post3.jpg", alt: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "post-info" }, [
+                    _c("h4", [
+                      _c("a", { attrs: { href: "single.html" } }, [
+                        _vm._v("Lorem ipsum dolor sit amet")
+                      ]),
+                      _vm._v(
+                        " July 30,\n                      2014 / 27 Comments\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "\n                      Praesent dapibus, neque id cursus faucibus, tortor neque\n                      egestas augue, eu vulputate magna eros eu erat. Aliquam erat\n                      volutpat. Nam dui mi, tincidunt quis.\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("a", { attrs: { href: "single.html" } }, [
+                      _c("span"),
+                      _vm._v("READ MORE")
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4 content-right" }, [
+              _c("div", { staticClass: "recent" }, [
+                _c("h3", [_vm._v("RECENT POSTS")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Aliquam tincidunt mauris")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Vestibulum auctor dapibus lipsum")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Nunc dignissim risus consecu")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Cras ornare tristiqu")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "comments" }, [
+                _c("h3", [_vm._v("RECENT COMMENTS")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Amada Doe ")]),
+                    _vm._v(" on "),
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Hello World!")])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Peter Doe ")]),
+                    _vm._v(" on "),
+                    _c("a", { attrs: { href: "#" } }, [_vm._v(" Photography")])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Steve Roberts ")
+                    ]),
+                    _vm._v(" on "),
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("HTML5/CSS3")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "archives" }, [
+                _c("h3", [_vm._v("ARCHIVES")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("October 2013")])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("September 2013")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("August 2013")])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("July 2013")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "categories" }, [
+                _c("h3", [_vm._v("CATEGORIES")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Vivamus vestibulum nulla")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Integer vitae libero ac risus e")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Vestibulum commo")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v("Cras iaculis ultricies")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "clearfix" })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "footer" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("p", [
+            _vm._v(
+              "\n            Copyrights © 2015 Blog All rights reserved | Template by\n            "
+            ),
+            _c("a", { attrs: { href: "http://w3layouts.com/" } }, [
+              _vm._v("W3layouts")
+            ])
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -53461,6 +54004,9 @@ Vue.compile = compileToFunctions;
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/easing.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/move-top.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/snapMenu.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
