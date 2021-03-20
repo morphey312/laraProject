@@ -83,7 +83,7 @@ transition: 0.5s all;
 -moz-transition: 0.5s all;
 -o-transition: 0.5s all;
 }
-.top-menu ul li a:hover,.top-menu ul li.active a{
+.top-menu ul li a:hover,.top-menu ul li a.exact-active{
 color:#00aeff;
 }
 /*----*/
