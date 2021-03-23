@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\PostsTags;
 use Illuminate\Database\Seeder;
-use App\Models\Post;
 
-class PostSeeder extends Seeder
+class PostsTagsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory(20)->create();
+        PostsTags::factory(80)->create();
     }
 }

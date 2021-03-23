@@ -24,7 +24,7 @@ class PostFactory extends Factory
         return [
             //
             'user_id' => $this->faker->randomDigitNotNull,
-            'category' => $this->faker->randomDigitNotNull,
+            'category_id' => $this->faker->randomDigitNotNull,
             'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'content' => $this->faker->text($maxNbChars = 400),
             'published_at' => now(),

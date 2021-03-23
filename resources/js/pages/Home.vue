@@ -53,6 +53,10 @@
             </div>
           </div>
           <content-right />
+          <div class="col-12">
+            <button @click="getMsg()">1</button>
+            <button @click="getLog()">2</button>
+          </div>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -62,7 +66,18 @@
 
 <script>
 import ContentRight from "../components/ContentRight.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: { ContentRight },
+  methods: {
+    ...mapActions(["getMsg"]),
+    getLog() {
+      console.log(typeof this.posts);
+      console.log(this.posts);
+    },
+  },
+  computed: {
+    ...mapGetters(["posts"]),
+  },
 };
 </script>

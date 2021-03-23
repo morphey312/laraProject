@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,17 +14,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
- Route::get('/{any}', function () {
-     return view('layouts.vue');
- })->where('any', '.*');
+
+Route::get(
+    '/{any}',
+    [PostController::class, 'index']
+)->where('any', '.*');
+
+Auth::routes();
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Auth::routes();
+// Route::get('/test', function () {
+//     $post = Post::orderBy('created_at', 'desc')->get();
+//     dump ($post);
+//     dump (response()->json($post));
+// });
 
-Route::get('/home', function () {
-    return view('home');
-});
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
