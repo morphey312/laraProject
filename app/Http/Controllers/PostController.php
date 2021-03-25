@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,24 @@ class PostController extends Controller
     public function index()
     {
         return view('layouts.vue');
+    }
+
+    public function getAll(Request $request)
+    {
+        $allPosts = Post::with(['user', 'category'])->get();
+        return response()->json($allPosts);
+    }
+
+    public function pagination(Request $request)
+    {
+        $perPage = Post::with(['user', 'category'])->paginate(3);
+        return response()->json($perPage);
+    }
+
+    public function getOrderPosts(Request $request)
+    {
+        $orderPosts = Post::orderBy('published_at', 'desc')->limit('5')->get();
+        return response()->json($orderPosts);
     }
 
     public function get(Request $request)
@@ -31,5 +50,4 @@ class PostController extends Controller
 
         return response()->json("ok");
     }
-
 }

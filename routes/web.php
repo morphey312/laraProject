@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,10 @@ Auth::routes();
 // });
 
 // Route::get('/test', function () {
-//     $post = Post::orderBy('created_at', 'desc')->get();
-//     dump ($post);
-//     dump (response()->json($post));
+
+//     $post = Post::with('category')->get();
+//     dump($post);
+//     dump(response()->json($post));
 // });
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
