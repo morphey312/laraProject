@@ -5,26 +5,26 @@
         <div class="content-grids">
           <div class="col-md-8 content-main">
             <div class="content-grid">
-              <div v-for="post in curentPage.data" :key="post.id">
+              <div v-for="post in authorPost" :key="post.id">
                 <div class="content-grid-info">
                   <img :src="post.img" alt="" />
                   <div class="post-info">
                     <h4>
-                      <a :href="'/single/' + post.id" @click="goTo(post.id)">{{ post.title }}</a>
+                      <a :href="'/single/' + post.id" @click="goTo(post.id)">{{
+                        post.title
+                      }}</a>
                       <span>{{ post.published_at }} / 27 Comments</span>
                     </h4>
                     <p>
                       {{ shortText(post.content) }}
                     </p>
-                    <a :href="'/single/' + post.id" @click="goTo(post.id)"><span></span>READ MORE</a>
-                    <star-rating v-model="rating"/>
+                    <a :href="'/single/' + post.id" @click="goTo(post.id)"
+                      ><span></span>READ MORE</a
+                    >
+                    <star-rating v-model="rating" />
                   </div>
                 </div>
               </div>
-              <pagination
-                :data="curentPage"
-                @pagination-change-page="getPagination"
-              ></pagination>
               <div class="content-grid-info">
                 <img src="/storage/images/post2.jpg" alt="" />
                 <div class="post-info">
@@ -67,22 +67,24 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating';
+import StarRating from "vue-star-rating";
 import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
+  name: "OrderedAuthor",
   components: { ContentRight, StarRating },
+  props: ["user_id"],
   data() {
     return {
-      curentPage: {},
       rating: 4,
     };
   },
   created() {
-    this.getPagination();
+    console.log("getAuthorPosts2", this.user_id);
+    this.getAuthorPosts(this.user_id);
   },
   methods: {
-    ...mapActions(["getPosts"]),
+    ...mapActions(["getPosts", "getAuthorPosts"]),
     shortText(str) {
       if (str.length > 200) {
         return str.slice(0, 196) + "...";
@@ -90,22 +92,17 @@ export default {
         return str;
       }
     },
-    getPagination(page = 1) {
-      axios.get("api/curentPage?page=" + page).then((res) => {
-        this.curentPage = res.data;
-      });
-    },
     goTo(id) {
-        this.$router.push({
-            name: ('single/' + id),
-            params: {
-                id : id
-            }
-        })
+      this.$router.push({
+        name: "single/" + id,
+        params: {
+          id: id,
+        },
+      });
     },
   },
   computed: {
-    ...mapGetters(["posts"]),
+    ...mapGetters(["authorPost"]),
   },
 };
 </script>

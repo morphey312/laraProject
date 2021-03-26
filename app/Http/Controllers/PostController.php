@@ -13,6 +13,12 @@ class PostController extends Controller
         return view('layouts.vue');
     }
 
+    public function post($id)
+    {
+        $post = Post::with(['user', 'category'])->where('id', $id)->get();
+        return response()->json($post);
+    }
+
     public function getAll(Request $request)
     {
         $allPosts = Post::with(['user', 'category'])->get();
@@ -22,6 +28,12 @@ class PostController extends Controller
     public function pagination(Request $request)
     {
         $perPage = Post::with(['user', 'category'])->paginate(3);
+        return response()->json($perPage);
+    }
+
+    public function authorPosts($user_id)
+    {
+        $perPage = Post::with(['user', 'category'])->where('user_id', $user_id)->get();
         return response()->json($perPage);
     }
 

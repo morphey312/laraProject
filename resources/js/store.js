@@ -6,10 +6,11 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         msg: '',
+        singlePost: {},
         posts: {},
+        authorPost: {},
         orderPosts: {},
         categories: {},
-        // curentPage: 0,
     },
     mutations: {
         getPosts(state, data) {
@@ -21,9 +22,12 @@ const store = new Vuex.Store({
         getCategories(state, data) {
             return state.categories = data;
         },
-        // getPagination(state, data) {
-        //     return state.curentPage = data;
-        // },
+        getPost(state, data) {
+            return state.singlePost = data[0];
+        },
+        getAuthorPosts(state, data) {
+            return state.authorPost = data;
+        },
     },
     getters: {
         posts(state) {
@@ -35,21 +39,34 @@ const store = new Vuex.Store({
         categories(state) {
             return state.categories;
         },
-        // curentPage(state) {
-        //     return state.curentPage;
-        // },
+        singlePost (state) {
+            return state.singlePost
+        },
+        authorPost (state) {
+            return state.authorPost
+        },
     },
     actions: {
-        // getPagination({ commit, page }) {
-        //     console.log('page = ', page);
-        //     axios.get('/api/' + page)
-        //         .then(res => {
-        //             commit('getPagination', res.data);
-        //             console.log('pagination', res.data);
-        //         }).catch(err => {
-        //             console.log(err)
-        //         })
-        // },
+        getAuthorPosts({commit}, user_id = 1) {
+            console.log('getAuthorPosts',user_id);
+            axios.get('/api/authorPosts/' + user_id)
+                .then(res => {
+                    commit('getAuthorPosts', res.data);
+                    console.log('getAuthorPosts', res.data);
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
+        getPost({commit}, id = 1) {
+            console.log(id);
+            axios.get('/api/single/' + id)
+                .then(res => {
+                    commit('getPost', res.data);
+                    console.log('getPost', res.data);
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
         getPosts({ commit }) {
             axios.get('/api/allPosts')
                 .then(res => {

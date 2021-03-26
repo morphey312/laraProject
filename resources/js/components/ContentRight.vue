@@ -3,10 +3,10 @@
     <div class="recent">
       <h3>RECENT POSTS</h3>
       <ul>
-        <li>
-          <a v-for="post in orderPosts" :key="post.id" href="#">{{
-            post.title
-          }}</a>
+        <li v-for="post in orderPosts" :key="post.id">
+          <a :href="'/single/' + post.id" @click="goTo(post.id)">
+            {{ post.title }}
+          </a>
         </li>
       </ul>
     </div>
@@ -41,6 +41,14 @@ export default {
   },
   methods: {
     ...mapActions(["getCategories", "getOrderPosts"]),
+    goTo(id) {
+        this.$router.push({
+            name: ('single/' + id),
+            params: {
+                id : id
+            }
+        })
+    },
   },
   computed: {
     ...mapGetters(["categories", "orderPosts"]),

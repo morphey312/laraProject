@@ -28,8 +28,12 @@ Route::get('allPosts', [PostController::class, 'getAll']);
 
 Route::get('curentPage', [PostController::class, 'pagination']);
 
+Route::get('authorPosts/{user_id}', [PostController::class, 'authorPosts']);
+
 Route::get('orderPosts', [PostController::class, 'getOrderPosts']);
 
 Route::get('categories', [CategoryController::class, 'get']);
+
+Route::get('single/{id}', [PostController::class, 'post']);
 
 Route::delete('posts/{id}', [PostController::class, 'delete']);
