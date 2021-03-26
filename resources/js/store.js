@@ -11,6 +11,7 @@ const store = new Vuex.Store({
         authorPost: {},
         orderPosts: {},
         categories: {},
+        categoriesPost: {},
     },
     mutations: {
         getPosts(state, data) {
@@ -27,6 +28,9 @@ const store = new Vuex.Store({
         },
         getAuthorPosts(state, data) {
             return state.authorPost = data;
+        },
+        getCategoryPosts(state, data) {
+            return state.categoriesPost = data;
         },
     },
     getters: {
@@ -45,8 +49,21 @@ const store = new Vuex.Store({
         authorPost (state) {
             return state.authorPost
         },
+        categoriesPost (state) {
+            return state.categoriesPost
+        },
     },
     actions: {
+        getCategoryPost({commit}, category_id = 1) {
+            console.log('getCategoryPosts',category_id);
+            axios.get('/api/categoryPosts/' + category_id)
+                .then(res => {
+                    commit('getCategoryPosts', res.data);
+                    console.log('getCategoryPosts', res.data);
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
         getAuthorPosts({commit}, user_id = 1) {
             console.log('getAuthorPosts',user_id);
             axios.get('/api/authorPosts/' + user_id)

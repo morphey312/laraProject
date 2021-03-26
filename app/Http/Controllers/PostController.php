@@ -33,8 +33,14 @@ class PostController extends Controller
 
     public function authorPosts($user_id)
     {
-        $perPage = Post::with(['user', 'category'])->where('user_id', $user_id)->get();
-        return response()->json($perPage);
+        $posts = Post::with(['user', 'category'])->where('user_id', $user_id)->get();
+        return response()->json($posts);
+    }
+
+    public function categoryPosts($category_id)
+    {
+        $posts = Post::with(['user', 'category'])->where('category_id', $category_id)->get();
+        return response()->json($posts);
     }
 
     public function getOrderPosts(Request $request)

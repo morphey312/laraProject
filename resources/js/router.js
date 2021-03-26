@@ -5,6 +5,7 @@ import About from './pages/About.vue'
 import Contact from './pages/Contact.vue'
 import Single from './pages/Single.vue'
 import OrderedAuthor from './pages/OrderedAuthor.vue'
+import OrderedCategory from './pages/OrderedCategory.vue'
 import NotFound from './pages/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -35,6 +36,12 @@ const routes = [
         path: '/authorPosts/:user_id',
         name: 'authorPosts/:user_id',
         component: OrderedAuthor,
+        props: true
+    },
+    {
+        path: '/category/:category_id',
+        name: 'authorPosts/:category_id',
+        component: OrderedCategory,
         props: true
     },
     {

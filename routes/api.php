@@ -30,6 +30,8 @@ Route::get('curentPage', [PostController::class, 'pagination']);
 
 Route::get('authorPosts/{user_id}', [PostController::class, 'authorPosts']);
 
+Route::get('categoryPosts/{category_id}', [PostController::class, 'categoryPosts']);
+
 Route::get('orderPosts', [PostController::class, 'getOrderPosts']);
 
 Route::get('categories', [CategoryController::class, 'get']);
