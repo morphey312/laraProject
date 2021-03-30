@@ -19,13 +19,13 @@ class PostController extends Controller
         return response()->json($post);
     }
 
-    public function getAll(Request $request)
+    public function getAll()
     {
         $allPosts = Post::with(['user', 'category'])->get();
         return response()->json($allPosts);
     }
 
-    public function pagination(Request $request)
+    public function pagination()
     {
         $perPage = Post::with(['user', 'category'])->paginate(3);
         return response()->json($perPage);

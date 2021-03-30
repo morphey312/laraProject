@@ -23,7 +23,11 @@
       <h3>CATEGORIES</h3>
       <ul>
         <li v-for="category in categories" :key="category.id">
-          <a :href="'/category/' + category.id" @click="goToCategory(category.id)">{{ category.name }}</a>
+          <a
+            :href="'/category/' + category.id"
+            @click="goToCategory(category.id)"
+            >{{ category.name }}</a
+          >
         </li>
       </ul>
     </div>
@@ -42,20 +46,20 @@ export default {
   methods: {
     ...mapActions(["getCategories", "getOrderPosts"]),
     goTo(id) {
-        this.$router.push({
-            name: ('single/' + id),
-            params: {
-                id : id
-            }
-        })
+      this.$router.push({
+        name: "single/" + id,
+        params: {
+          id: id,
+        },
+      });
     },
     goToCategory(id) {
-        this.$router.push({
-            name: ('category/' + id),
-            params: {
-                category_id : id
-            }
-        })
+      this.$router.push({
+        name: "category/" + id,
+        params: {
+          category_id: id,
+        },
+      });
     },
   },
   computed: {

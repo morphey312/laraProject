@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import auth from './auth.js'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
         orderPosts: {},
         categories: {},
         categoriesPost: {},
+        errors: [],
     },
     mutations: {
         getPosts(state, data) {
@@ -32,6 +34,9 @@ const store = new Vuex.Store({
         getCategoryPosts(state, data) {
             return state.categoriesPost = data;
         },
+        setErrors(state, errors) {
+            state.errors = errors;
+        },
     },
     getters: {
         posts(state) {
@@ -43,19 +48,20 @@ const store = new Vuex.Store({
         categories(state) {
             return state.categories;
         },
-        singlePost (state) {
+        singlePost(state) {
             return state.singlePost
         },
-        authorPost (state) {
+        authorPost(state) {
             return state.authorPost
         },
-        categoriesPost (state) {
+        categoriesPost(state) {
             return state.categoriesPost
         },
+        errors: state => state.errors,
     },
     actions: {
-        getCategoryPost({commit}, category_id = 1) {
-            console.log('getCategoryPosts',category_id);
+        getCategoryPost({ commit }, category_id = 1) {
+            console.log('getCategoryPosts', category_id);
             axios.get('/api/categoryPosts/' + category_id)
                 .then(res => {
                     commit('getCategoryPosts', res.data);
@@ -64,8 +70,8 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
-        getAuthorPosts({commit}, user_id = 1) {
-            console.log('getAuthorPosts',user_id);
+        getAuthorPosts({ commit }, user_id = 1) {
+            console.log('getAuthorPosts', user_id);
             axios.get('/api/authorPosts/' + user_id)
                 .then(res => {
                     commit('getAuthorPosts', res.data);
@@ -74,7 +80,7 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
-        getPost({commit}, id = 1) {
+        getPost({ commit }, id = 1) {
             console.log(id);
             axios.get('/api/single/' + id)
                 .then(res => {
@@ -112,6 +118,9 @@ const store = new Vuex.Store({
                 })
         },
     },
+    modules: {
+        auth,
+    }
 })
 
 export default store

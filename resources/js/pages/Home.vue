@@ -10,14 +10,18 @@
                   <img :src="post.img" alt="" />
                   <div class="post-info">
                     <h4>
-                      <a :href="'/single/' + post.id" @click="goTo(post.id)">{{ post.title }}</a>
+                      <a :href="'/single/' + post.id" @click="goTo(post.id)">{{
+                        post.title
+                      }}</a>
                       <span>{{ post.published_at }} / 27 Comments</span>
                     </h4>
                     <p>
                       {{ shortText(post.content) }}
                     </p>
-                    <a :href="'/single/' + post.id" @click="goTo(post.id)"><span></span>READ MORE</a>
-                    <star-rating v-model="rating"/>
+                    <a :href="'/single/' + post.id" @click="goTo(post.id)"
+                      ><span></span>READ MORE</a
+                    >
+                    <star-rating v-model="rating" />
                   </div>
                 </div>
               </div>
@@ -25,39 +29,9 @@
                 :data="curentPage"
                 @pagination-change-page="getPagination"
               ></pagination>
-              <div class="content-grid-info">
-                <img src="/storage/images/post2.jpg" alt="" />
-                <div class="post-info">
-                  <h4>
-                    <a href="single">Lorem ipsum dolor sit amet</a> July 30,
-                    2014 / 27 Comments
-                  </h4>
-                  <p>
-                    Praesent dapibus, neque id cursus faucibus, tortor neque
-                    egestas augue, eu vulputate magna eros eu erat. Aliquam erat
-                    volutpat. Nam dui mi, tincidunt quis.
-                  </p>
-                  <a href="single"><span></span>READ MORE</a>
-                </div>
-              </div>
-              <div class="content-grid-info">
-                <img src="/storage/images/post3.jpg" alt="" />
-                <div class="post-info">
-                  <h4>
-                    <a href="single">Lorem ipsum dolor sit amet</a> July 30,
-                    2014 / 27 Comments
-                  </h4>
-                  <p>
-                    Praesent dapibus, neque id cursus faucibus, tortor neque
-                    egestas augue, eu vulputate magna eros eu erat. Aliquam erat
-                    volutpat. Nam dui mi, tincidunt quis.
-                  </p>
-                  <a href="single"><span></span>READ MORE</a>
-                </div>
-              </div>
+
             </div>
           </div>
-
           <content-right />
           <div class="clearfix"></div>
         </div>
@@ -67,7 +41,7 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating';
+import StarRating from "vue-star-rating";
 import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -96,13 +70,14 @@ export default {
       });
     },
     goTo(id) {
-        this.$router.push({
-            name: ('single/' + id),
-            params: {
-                id : id
-            }
-        })
+      this.$router.push({
+        name: "single/" + id,
+        params: {
+          id: id,
+        },
+      });
     },
+    
   },
   computed: {
     ...mapGetters(["posts"]),

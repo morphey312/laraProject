@@ -6,6 +6,9 @@ import Contact from './pages/Contact.vue'
 import Single from './pages/Single.vue'
 import OrderedAuthor from './pages/OrderedAuthor.vue'
 import OrderedCategory from './pages/OrderedCategory.vue'
+import Login from './pages/Auth/Login.vue'
+import Register from './pages/Auth/Register.vue'
+import Verify from './pages/Auth/Verify.vue'
 import NotFound from './pages/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -45,13 +48,28 @@ const routes = [
         props: true
     },
     {
+        path: '/register',
+        name: 'register',
+        component: Register,
+    },
+    {
+        path: '/verify',
+        name: 'verify',
+        component: Verify,
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login,
+    },
+    {
         path: '/404',
         name: '404',
         component: NotFound
     },
     {
-    path: '/:pathMatch(.*)*',
-    redirect: '/404'
+        path: '/:pathMatch(.*)*',
+        redirect: '/404'
     }
 ]
 
