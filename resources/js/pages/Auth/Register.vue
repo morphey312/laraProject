@@ -58,7 +58,7 @@
               placeholder="Confirm password"
             />
           </div>
-          <button type="button" @click="register" class="btn btn-primary">
+          <button type="button" @click="register()" class="btn btn-primary">
             Register
           </button>
         </form>
@@ -71,7 +71,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "Home",
+  name: "Register",
 
   data: function() {
     return {
@@ -95,9 +95,9 @@ export default {
   methods: {
     ...mapActions("auth", ["sendRegisterRequest"]),
 
-    register: function() {
+    register () {
       this.sendRegisterRequest(this.details).then(() => {
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "registered" });
       });
     }
   },

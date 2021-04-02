@@ -63,7 +63,7 @@ export default {
     },
     goTo(id) {
       this.$router.push({
-        name: "category/" + id,
+        name: "categoryID",
         params: {
           id: id,
         },

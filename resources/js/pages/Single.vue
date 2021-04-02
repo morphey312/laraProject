@@ -67,7 +67,7 @@ export default {
     ...mapActions(["getPost"]),
     goTo(id) {
       this.$router.push({
-        name: "authorPosts/" + id,
+        name: "authorPostsID",
         params: {
           user_id: id,
         },

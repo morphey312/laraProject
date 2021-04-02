@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,13 +65,15 @@ class AuthController extends Controller
             ], 422);
         }
         // Вытаскиваем данные из ответа
-        $data = json_decode($response->getContent(), true);
+        // $data = json_decode($response->getContent(), true);
         // Формируем окончательный ответ в нужном формате
-        return response()->json([
-            'token' => $data['access_token'],
-            'refresh_token' => $data['refresh_token'],
-            'user' => $user,
-            'status' => 200
-        ]);
+        // return response()->json([
+        //     'token' => $data['access_token'],
+        //     'refresh_token' => $data['refresh_token'],
+        //     'user' => $user,
+        //     'status' => 200
+        // ]);
+        $response = $request->user();
+        return response()->json(json_decode($response->getContent(), true));
     }
 }

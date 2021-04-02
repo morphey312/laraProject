@@ -3,7 +3,7 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error }}
     </div>
-    <h1 v-show="!error">Please wait..</h1>
+    <h1 v-show="!error">Please wait...</h1>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  name: "Verify",
   props: ["hash"],
 
   data() {

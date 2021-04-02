@@ -9,13 +9,13 @@
             <input
               type="email"
               class="form-control"
-              :class="{ 'is-invalid': errors.username }"
+              :class="{ 'is-invalid': errors.email }"
               id="email"
-              v-model="details.username"
+              v-model="details.email"
               placeholder="Enter email"
             />
-            <div class="invalid-feedback" v-if="errors.username">
-              {{ errors.username[0] }}
+            <div class="invalid-feedback" v-if="errors.email">
+              {{ errors.email[0] }}
             </div>
           </div>
           <div class="form-group">
@@ -45,19 +45,21 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "Home",
+  name: "Login",
 
   data: function () {
     return {
       details: {
-        username: "sawayn.fannie@example.net",
+        email: "sawayn.fannie@example.net",
         password: "12345678",
       },
+      user_id: 0,
     };
   },
 
   computed: {
     ...mapGetters(["errors"]),
+    ...mapGetters("auth", ["user"]),
   },
 
   mounted() {
@@ -69,7 +71,10 @@ export default {
 
     login() {
       this.sendLoginRequest(this.details).then(() => {
-        this.$router.push({ name: "login" });
+        this.$router.push({
+          name: "authorPostsID",
+          params: { user_id: this.user.id },
+        });
       });
     },
   },

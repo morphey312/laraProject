@@ -13,29 +13,33 @@ const store = new Vuex.Store({
         orderPosts: {},
         categories: {},
         categoriesPost: {},
+        currentPages: {},
         errors: [],
     },
     mutations: {
         getPosts(state, data) {
-            return state.posts = data;
+            state.posts = data;
         },
         getOrderPosts(state, data) {
-            return state.orderPosts = data;
+            state.orderPosts = data;
         },
         getCategories(state, data) {
-            return state.categories = data;
+            state.categories = data;
         },
         getPost(state, data) {
-            return state.singlePost = data[0];
+            state.singlePost = data[0];
         },
         getAuthorPosts(state, data) {
-            return state.authorPost = data;
+            state.authorPost = data;
         },
         getCategoryPosts(state, data) {
-            return state.categoriesPost = data;
+            state.categoriesPost = data;
         },
         setErrors(state, errors) {
             state.errors = errors;
+        },
+        setCurrentPages(state, data) {
+            state.currentPages = data;
         },
     },
     getters: {
@@ -58,8 +62,16 @@ const store = new Vuex.Store({
             return state.categoriesPost
         },
         errors: state => state.errors,
+        currentPages: state => state.currentPages,
     },
     actions: {
+        getCurrentPages({ commit }, page) {
+            axios.get("api/curentPage?page=" + page).then((res) => {
+                commit('setCurrentPages', res.data);
+            }).catch(err => {
+                console.log(err)
+            });
+        },
         getCategoryPost({ commit }, category_id = 1) {
             console.log('getCategoryPosts', category_id);
             axios.get('/api/categoryPosts/' + category_id)

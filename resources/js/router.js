@@ -8,6 +8,7 @@ import OrderedAuthor from './pages/OrderedAuthor.vue'
 import OrderedCategory from './pages/OrderedCategory.vue'
 import Login from './pages/Auth/Login.vue'
 import Register from './pages/Auth/Register.vue'
+import Registered from './pages/Auth/Registered.vue'
 import Verify from './pages/Auth/Verify.vue'
 import NotFound from './pages/NotFound.vue'
 
@@ -31,19 +32,19 @@ const routes = [
     },
     {
         path: '/single/:id',
-        name: 'single/:id',
+        name: 'singleID',
         component: Single,
         props: true
     },
     {
         path: '/authorPosts/:user_id',
-        name: 'authorPosts/:user_id',
+        name: 'authorPostsID',
         component: OrderedAuthor,
         props: true
     },
     {
         path: '/category/:category_id',
-        name: 'authorPosts/:category_id',
+        name: 'categoryID',
         component: OrderedCategory,
         props: true
     },
@@ -51,6 +52,11 @@ const routes = [
         path: '/register',
         name: 'register',
         component: Register,
+    },
+    {
+        path: '/registered',
+        name: 'registered',
+        component: Registered,
     },
     {
         path: '/verify',
@@ -61,6 +67,7 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
+        props: true
     },
     {
         path: '/404',
