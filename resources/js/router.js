@@ -11,6 +11,7 @@ import Register from './pages/Auth/Register.vue'
 import Registered from './pages/Auth/Registered.vue'
 import Verify from './pages/Auth/Verify.vue'
 import NotFound from './pages/NotFound.vue'
+import CreatePost from './pages/CreatePost.vue'
 
 Vue.use(VueRouter)
 
@@ -67,6 +68,12 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
+        props: true
+    },
+    {
+        path: '/create',
+        name: 'create',
+        component: CreatePost,
         props: true
     },
     {

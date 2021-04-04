@@ -9,30 +9,30 @@
       </div>
       <span class="menu"> </span>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <button @click="getClients()">button</button>
+        <button @click="sendLogoutRequest">LogOut</button>
         <router-link to="/login">login</router-link>
         <router-link to="/register">register</router-link>
         <router-link to="/verify">verify</router-link>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li><router-link to="/">HOME</router-link></li>
-          <li><router-link to="about">ABOUT</router-link></li>
-          <li><router-link to="contact">CONTACT</router-link></li>
+          <li><router-link to="/about">ABOUT</router-link></li>
+          <li><router-link to="/contact">CONTACT</router-link></li>
           <li class="nav-item dropdown">
-            <a
+            <router-link
               class="nav-link dropdown-toggle"
-              href="#"
+              to="#"
               id="navbarDropdown"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               Dropdown
-            </a>
+            </router-link>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><router-link class="dropdown-item" to="#">Action</router-link></li>
+              <li><router-link class="dropdown-item" to="#">Another action</router-link></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><router-link class="dropdown-item" to="#">Something else here</router-link></li>
             </ul>
           </li>
           <div class="clearfix"></div>
@@ -44,26 +44,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: "NavMenu",
   data() {
     return {
-      data: {
-          grant_type: 'password',
-            client_id: 2,
-            client_secret: 'my_client_id_secret_from_database', // Laravel Password Grant Client
-            username: 'abc@def.com',
-            password: 'admin',
-            scope: '',
-      },
     };
   },
   methods: {
-      getClients() {
-      axios.post("/oauth/token", this.data).then((response) => {
-        console.log(response.data);
-      });
-    },
+      ...mapActions("auth", ["sendLogoutRequest"]),
   }
 };
 </script>

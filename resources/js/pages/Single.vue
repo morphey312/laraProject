@@ -11,11 +11,11 @@
         <ul class="comment-list">
           <h5 class="post-author_head">
             Written by
-            <a
-              href="#"
+            <router-link
+              to="#"
               :title="'Posts by' + singlePost.user.name"
               rel="author"
-              >{{ singlePost.user.name }}</a
+              >{{ singlePost.user.name }}</router-link
             >
           </h5>
           <li>
@@ -27,12 +27,12 @@
             <div class="desc">
               <p>
                 View all posts by:
-                <a
-                  :href="'/authorPosts/' + singlePost.user_id"
+                <router-link
+                  :to="'/authorPosts/' + singlePost.user_id"
                   @click="goTo(singlePost.user_id)"
                   :title="'Posts by' + singlePost.user.name"
                   rel="author"
-                  >{{ singlePost.user.name }}</a
+                  >{{ singlePost.user.name }}</router-link
                 >
               </p>
             </div>
@@ -76,6 +76,12 @@ export default {
   },
   computed: {
     ...mapGetters(["singlePost"]),
+  },
+  watch: {
+    "$route.path": function () {
+      console.log(this.$route.params.id);
+      this.getPost(this.id);
+    },
   },
 };
 </script>

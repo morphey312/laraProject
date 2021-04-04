@@ -17,22 +17,22 @@ const store = new Vuex.Store({
         errors: [],
     },
     mutations: {
-        getPosts(state, data) {
+        setPosts(state, data) {
             state.posts = data;
         },
-        getOrderPosts(state, data) {
+        setOrderPosts(state, data) {
             state.orderPosts = data;
         },
-        getCategories(state, data) {
+        setCategories(state, data) {
             state.categories = data;
         },
-        getPost(state, data) {
+        setPost(state, data) {
             state.singlePost = data[0];
         },
-        getAuthorPosts(state, data) {
+        setAuthorPosts(state, data) {
             state.authorPost = data;
         },
-        getCategoryPosts(state, data) {
+        setCategoryPosts(state, data) {
             state.categoriesPost = data;
         },
         setErrors(state, errors) {
@@ -40,6 +40,11 @@ const store = new Vuex.Store({
         },
         setCurrentPages(state, data) {
             state.currentPages = data;
+        },
+        deletePost(state, id) {
+            let arr = state.currentPages.data;
+            let index = arr.findIndex(item => item.id === id);
+            state.currentPages.data.splice(index, 1);
         },
     },
     getters: {
@@ -68,25 +73,26 @@ const store = new Vuex.Store({
         getCurrentPages({ commit }, page) {
             axios.get("api/curentPage?page=" + page).then((res) => {
                 commit('setCurrentPages', res.data);
+                console.log('setCurrentPages', res.data);
             }).catch(err => {
                 console.log(err)
             });
         },
         getCategoryPost({ commit }, category_id = 1) {
-            console.log('getCategoryPosts', category_id);
+            console.log('setCategoryPosts', category_id);
             axios.get('/api/categoryPosts/' + category_id)
                 .then(res => {
-                    commit('getCategoryPosts', res.data);
-                    console.log('getCategoryPosts', res.data);
+                    commit('setCategoryPosts', res.data);
+                    console.log('setCategoryPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
         },
         getAuthorPosts({ commit }, user_id = 1) {
-            console.log('getAuthorPosts', user_id);
+            console.log('setAuthorPosts', user_id);
             axios.get('/api/authorPosts/' + user_id)
                 .then(res => {
-                    commit('getAuthorPosts', res.data);
+                    commit('setAuthorPosts', res.data);
                     console.log('getAuthorPosts', res.data);
                 }).catch(err => {
                     console.log(err)
@@ -96,8 +102,8 @@ const store = new Vuex.Store({
             console.log(id);
             axios.get('/api/single/' + id)
                 .then(res => {
-                    commit('getPost', res.data);
-                    console.log('getPost', res.data);
+                    commit('setPost', res.data);
+                    console.log('setPost', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
@@ -105,8 +111,8 @@ const store = new Vuex.Store({
         getPosts({ commit }) {
             axios.get('/api/allPosts')
                 .then(res => {
-                    commit('getPosts', res.data);
-                    console.log('getPosts', res.data);
+                    commit('setPosts', res.data);
+                    console.log('setPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
@@ -114,8 +120,8 @@ const store = new Vuex.Store({
         getOrderPosts({ commit }) {
             axios.get('/api/orderPosts')
                 .then(res => {
-                    commit('getOrderPosts', res.data);
-                    console.log('orderPosts', res.data);
+                    commit('setOrderPosts', res.data);
+                    console.log('setorderPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
@@ -123,12 +129,24 @@ const store = new Vuex.Store({
         getCategories({ commit }) {
             axios.get('/api/categories')
                 .then(res => {
-                    commit('getCategories', res.data);
-                    console.log('getCategories', res.data);
+                    commit('setCategories', res.data);
+                    console.log('setCategories', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
         },
+        deletePost({ commit, dispatch }, id) {
+            console.log('deletePost', id);
+            axios.delete('/api/posts/' + id)
+                .then(res => {
+                    if (res.data === 'ok') {
+                        commit('deletePost', id);
+                        dispatch('getCurrentPages');
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+        }
     },
     modules: {
         auth,

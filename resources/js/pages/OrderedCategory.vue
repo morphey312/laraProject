@@ -6,24 +6,7 @@
           <div class="col-md-8 content-main">
             <div class="content-grid">
               <div v-for="post in categoriesPost" :key="post.id">
-                <div class="content-grid-info">
-                  <img :src="post.img" alt="" />
-                  <div class="post-info">
-                    <h4>
-                      <a :href="'/single/' + post.id" @click="goTo(post.id)">{{
-                        post.title
-                      }}</a>
-                      <span>{{ post.published_at }} / 27 Comments</span>
-                    </h4>
-                    <p>
-                      {{ shortText(post.content) }}
-                    </p>
-                    <a :href="'/single/' + post.id" @click="goTo(post.id)"
-                      ><span></span>READ MORE</a
-                    >
-                    <star-rating v-model="rating" />
-                  </div>
-                </div>
+                <post :post="post"></post>
               </div>
             </div>
           </div>
@@ -36,17 +19,15 @@
 </template>
 
 <script>
-import StarRating from "vue-star-rating";
+import Post from "../components/Post.vue";
 import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "OrderedCategory",
-  components: { ContentRight, StarRating },
+  components: { ContentRight, Post },
   props: ["category_id"],
   data() {
-    return {
-      rating: 4,
-    };
+    return {};
   },
   created() {
     console.log("getCategoryPost", this.category_id);
@@ -54,14 +35,8 @@ export default {
   },
   methods: {
     ...mapActions(["getCategoryPost"]),
-    shortText(str) {
-      if (str.length > 200) {
-        return str.slice(0, 196) + "...";
-      } else {
-        return str;
-      }
-    },
     goTo(id) {
+      this.getCategoryPost(id);
       this.$router.push({
         name: "categoryID",
         params: {
@@ -72,6 +47,12 @@ export default {
   },
   computed: {
     ...mapGetters(["categoriesPost"]),
+  },
+  watch: {
+      '$route.path': function(){
+    console.log(this.$route.params.id);
+    this.getCategoryPost(this.category_id);
+      }
   },
 };
 </script>

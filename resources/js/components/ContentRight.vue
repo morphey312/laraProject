@@ -4,18 +4,27 @@
       <h3>RECENT POSTS</h3>
       <ul>
         <li v-for="post in orderPosts" :key="post.id">
-          <a :href="'/single/' + post.id" @click="goTo(post.id)">
+          <router-link :to="'/single/' + post.id" @click="goTo(post.id)">
             {{ post.title }}
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
     <div class="comments">
       <h3>RECENT COMMENTS</h3>
       <ul>
-        <li><a href="#">Amada Doe </a> on <a href="#">Hello World!</a></li>
-        <li><a href="#">Peter Doe </a> on <a href="#"> Photography</a></li>
-        <li><a href="#">Steve Roberts </a> on <a href="#">HTML5/CSS3</a></li>
+        <li>
+          <router-link to="#">Amada Doe </router-link> on
+          <router-link to="#">Hello World!</router-link>
+        </li>
+        <li>
+          <router-link to="#">Peter Doe </router-link> on
+          <router-link to="#"> Photography</router-link>
+        </li>
+        <li>
+          <router-link to="#">Steve Roberts </router-link> on
+          <router-link to="#">HTML5/CSS3</router-link>
+        </li>
       </ul>
     </div>
     <div class="clearfix"></div>
@@ -23,10 +32,10 @@
       <h3>CATEGORIES</h3>
       <ul>
         <li v-for="category in categories" :key="category.id">
-          <a
-            :href="'/category/' + category.id"
+          <router-link
+            :to="'/category/' + category.id"
             @click="goToCategory(category.id)"
-            >{{ category.name }}</a
+            >{{ category.name }}</router-link
           >
         </li>
       </ul>
@@ -47,7 +56,7 @@ export default {
     ...mapActions(["getCategories", "getOrderPosts"]),
     goTo(id) {
       this.$router.push({
-        name: "single/" + id,
+        name: "singleID",
         params: {
           id: id,
         },
@@ -55,7 +64,7 @@ export default {
     },
     goToCategory(id) {
       this.$router.push({
-        name: "category/" + id,
+        name: "categoryID",
         params: {
           category_id: id,
         },

@@ -37,7 +37,6 @@ Route::get('categoryPosts/{category_id}', [PostController::class, 'categoryPosts
 Route::get('orderPosts', [PostController::class, 'getOrderPosts']);
 Route::get('single/{id}', [PostController::class, 'post']);
 Route::post('posts', [PostController::class, 'store']);
-Route::delete('posts/{id}', [PostController::class, 'delete']);
 
 Route::get('categories', [CategoryController::class, 'get']);
 
@@ -47,4 +46,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::get('user', [AuthenticationController::class, 'user'])->name('user');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::delete('posts/{id}', [PostController::class, 'delete']);
 });

@@ -10,7 +10,7 @@
     <h2 v-else-if="!user.email_verified_at">
       Hello, {{ user.name }}! Registration successful, please check your inbox
       and click confirmation link. If you did not receive the email, click
-      <a href="#" @click="verifyResend">here</a> to request another
+      <router-link to="#" @click="verifyResend">here</router-link> to request another
     </h2>
     <h2 v-else>Hello, {{ user.name }}! You're in.</h2>
   </div>

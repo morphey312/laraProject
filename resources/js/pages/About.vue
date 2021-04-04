@@ -43,17 +43,17 @@
             PageMaker including versions of Lorem Ipsum.
           </p>
           <ul>
-            <li><a href="#">Always free from repetition</a></li>
+            <li><router-link to="#">Always free from repetition</router-link></li>
             <li>
-              <a href="#"
-                >Vestibulum rhoncus nibh quis dui fermentum iaculis.</a
+              <router-link to="#"
+                >Vestibulum rhoncus nibh quis dui fermentum iaculis.</router-link
               >
             </li>
-            <li><a href="#">The standard chunk of Lorem Ipsum</a></li>
+            <li><router-link to="#">The standard chunk of Lorem Ipsum</router-link></li>
             <li>
-              <a href="#">In consequat dolor in lorem egestas ultrices.</a>
+              <router-link to="#">In consequat dolor in lorem egestas ultrices.</router-link>
             </li>
-            <li><a href="#">Ultrices rhoncus nibh quis dui.</a></li>
+            <li><router-link to="#">Ultrices rhoncus nibh quis dui.</router-link></li>
           </ul>
         </div>
         <div class="who-iam">
