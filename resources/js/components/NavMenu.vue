@@ -13,6 +13,7 @@
         <router-link to="/login">login</router-link>
         <router-link to="/register">register</router-link>
         <router-link to="/verify">verify</router-link>
+        <router-link to="/create">Create</router-link>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li><router-link to="/">HOME</router-link></li>
           <li><router-link to="/about">ABOUT</router-link></li>
@@ -29,10 +30,20 @@
               Dropdown
             </router-link>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" to="#">Action</router-link></li>
-              <li><router-link class="dropdown-item" to="#">Another action</router-link></li>
+              <li>
+                <router-link class="dropdown-item" to="#">Action</router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="#"
+                  >Another action</router-link
+                >
+              </li>
               <li><hr class="dropdown-divider" /></li>
-              <li><router-link class="dropdown-item" to="#">Something else here</router-link></li>
+              <li>
+                <router-link class="dropdown-item" to="#"
+                  >Something else here</router-link
+                >
+              </li>
             </ul>
           </li>
           <div class="clearfix"></div>
@@ -44,15 +55,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   name: "NavMenu",
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
-      ...mapActions("auth", ["sendLogoutRequest"]),
-  }
+    ...mapActions("auth", ["sendLogoutRequest"]),
+  },
 };
 </script>

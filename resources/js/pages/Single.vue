@@ -3,7 +3,9 @@
     <div class="container">
       <div class="col-md-8 single-main">
         <div class="single-grid">
-          <img :src="singlePost.img" alt="" />
+          <div>
+              <img :src="'../storage/' + singlePost.img" alt="" />
+          </div>
           <p>
             {{ singlePost.content }}
           </p>

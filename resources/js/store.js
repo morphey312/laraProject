@@ -117,7 +117,7 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
-        getOrderPosts({ commit }) {
+        getOrderPosts({ commit },) {
             axios.get('/api/orderPosts')
                 .then(res => {
                     commit('setOrderPosts', res.data);
@@ -131,6 +131,22 @@ const store = new Vuex.Store({
                 .then(res => {
                     commit('setCategories', res.data);
                     console.log('setCategories', res.data);
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
+        createPost({ commit }, data) {
+                    console.log('createPost 1', data);
+                    console.log('createPost 2', data.form);
+                    console.log('createPost 3', data.user_id);
+                    axios.post('/api/posts', data.form)
+                .then(res => {
+                    if (res.status == 201) {
+                        this.$router.push({
+                            name: "authorPostsID",
+                            params: { user_id: data.user_id },
+                        });
+                    }
                 }).catch(err => {
                     console.log(err)
                 })

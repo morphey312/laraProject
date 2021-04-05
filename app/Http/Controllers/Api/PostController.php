@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -56,17 +58,32 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $post = Post::create($request->all());
+        $post = new Post;
+        $post->user_id = $request->user()->id;
+        $post->category_id = $request->category_id;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->published_at = $request->published_at;
 
-        return response()->json($post);
+        if (request()->hasFile('file')) {
+            $file = request()->file('file')->storeAs(
+                '/images/',
+                request()->user()->id . time() . md5_file(request()->file('file')) . '.' . request()->file('file')->extension(),
+                'public'
+            );
+        }
+        $post->img = $file;
+        dump($post);
+        $post->save();
+
+        return response()->json($request, 201);
     }
 
     public function delete($id)
     {
         Post::destroy($id);
-
         return response()->json("ok");
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="content-grid-info">
-    <img :src="post.img" alt="" />
+    <img :src="'../storage/' + post.img" alt="" />
     <div class="post-info">
       <h4>
         <router-link :to="'/single/' + post.id" @click="goTo(post.id)">

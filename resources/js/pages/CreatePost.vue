@@ -7,7 +7,11 @@
             <img src="" alt="" />
           </div>
           <div class="formGroup">
-            <form method="POST" enctype="multipart/form-data">
+            <form
+              method="POST"
+              enctype="multipart/form-data"
+              @submit.prevent="sendPost(user.id)"
+            >
               <div class="input-group mb-3">
                 <input
                   class="form-control"
@@ -22,9 +26,9 @@
                   class="form-control"
                   aria-label="Example text with button addon"
                   aria-describedby="button-addon1"
-                  type="text"
-                  placeholder="Name"
-                  name="name"
+                  type="date"
+                  placeholder="Published at"
+                  name="published_at"
                   required
                 />
               </div>
@@ -32,7 +36,7 @@
                 <select
                   class="form-control"
                   id="inputGroupSelect01"
-                  name="category"
+                  name="category_id"
                   v-model="selectedCategory"
                 >
                   <category
@@ -56,10 +60,9 @@
                   placeholder="File"
                   name="file"
                   required
+                  @change="selectFile"
                 />
-                <label class="input-group-text" for="inputGroupFile02"
-                  >Upload</label
-                >
+                <label class="input-group-text" for="inputGroupFile02"></label>
               </div>
               <div class="input-group mb-3">
                 <textarea
@@ -87,16 +90,39 @@ export default {
   data() {
     return {
       selectedCategory: 0,
+      file: null,
     };
   },
   created() {
     this.getCategories();
   },
   methods: {
-    ...mapActions(["getCategories"]),
+    ...mapActions(["getCategories", "createPost"]),
+    selectFile(event) {
+      this.file = event.target.files[0];
+      console.log(this.file);
+    },
+    sendPost(id) {
+      let form = new FormData();
+      form.append("file", this.file);
+      form.append("title", document.getElementsByName("title")[0].value);
+      form.append(
+        "published_at",
+        document.getElementsByName("published_at")[0].value
+      );
+      form.append("category_id", this.selectedCategory);
+      form.append("content", document.getElementsByName("content")[0].value);
+      console.log(document.getElementsByName("title")[0].value);
+      console.log(document.getElementsByName("published_at")[0].value);
+      console.log(this.selectedCategory);
+      console.log(document.getElementsByName("content")[0].value);
+
+      this.createPost({ user_id: id, form: form });
+    },
   },
   computed: {
     ...mapGetters(["categories"]),
+    ...mapGetters("auth", ["user"]),
   },
 };
 </script>
