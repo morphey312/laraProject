@@ -13,7 +13,6 @@ export default {
 
     mutations: {
         setUserData(state, user) {
-            console.log('setUserData ', user);
             state.userData = user;
         }
     },

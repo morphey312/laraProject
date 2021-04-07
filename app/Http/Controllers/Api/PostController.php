@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\EditRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class PostController extends Controller
 {
@@ -67,16 +68,23 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->published_at = $request->published_at;
 
-        if (request()->hasFile('file')) {
-            $file = request()->file('file')->storeAs(
+        if ($request->hasFile('file')) {
+            $file = $request->file('file')->storeAs(
                 '/images/',
-                request()->user()->id . time() . md5_file(request()->file('file')) . '.' . request()->file('file')->extension(),
+                $request->user()->id . time() . md5_file($request->file('file')) . '.' . $request->file('file')->extension(),
                 'public'
             );
         }
         $post->img = $file;
-        dump($post);
         $post->save();
+
+        return response()->json($post, 201);
+    }
+
+    public function edit(EditRequest $request)
+    {
+        $validData = $request;
+        Post::updatePost($validData, $request->user()->id);
 
         return response()->json($request, 201);
     }
@@ -84,6 +92,7 @@ class PostController extends Controller
     public function delete($id)
     {
         Post::destroy($id);
+
         return response()->json("ok");
     }
 }

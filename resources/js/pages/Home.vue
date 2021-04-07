@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import ContentRight from "../components/ContentRight.vue";
 import Post from "../components/Post.vue";
+import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: { ContentRight, Post },

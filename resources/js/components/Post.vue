@@ -15,7 +15,13 @@
         <router-link :to="'/single/' + post.id" @click="goTo(post.id)">
           <span></span>READ MORE
         </router-link>
-        <button type="button" class="btn btn-primary">EDIT</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="goToEdit(post.id)"
+        >
+          EDIT
+        </button>
         <button
           type="button"
           class="btn btn-danger"
@@ -38,7 +44,6 @@ export default {
   props: ["post"],
   data() {
     return {
-      data: {},
       rating: 4,
     };
   },
@@ -57,6 +62,14 @@ export default {
         name: "singleID",
         params: {
           id: id,
+        },
+      });
+    },
+    goToEdit(id) {
+      this.$router.push({
+        name: "edit",
+        params: {
+          post_id: id,
         },
       });
     },

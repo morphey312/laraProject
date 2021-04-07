@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth.js'
+import router from './router'
 
 Vue.use(Vuex)
 
@@ -136,15 +137,29 @@ const store = new Vuex.Store({
                 })
         },
         createPost({ commit }, data) {
-                    console.log('createPost 1', data);
-                    console.log('createPost 2', data.form);
-                    console.log('createPost 3', data.user_id);
-                    axios.post('/api/posts', data.form)
+            console.log('createPost 1', data);
+            console.log('createPost 2', data.form);
+            console.log('createPost 3', data.user_id);
+            axios.post('/api/posts', data.form)
                 .then(res => {
-                    if (res.status == 201) {
-                        this.$router.push({
+                    if (res.status == 200) {
+                        router.push({
                             name: "authorPostsID",
                             params: { user_id: data.user_id },
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
+        editPost({ commit }, data) {
+            console.log('Edit 2', data);
+            axios.post('/api/posts', data.form)
+                .then(res => {
+                    if (res.status == 201) {
+                        router.push({
+                            name: "singleID",
+                            params: { id: data.post_id },
                         });
                     }
                 }).catch(err => {

@@ -6,8 +6,7 @@
           <div class="col-md-8 content-main">
             <div class="content-grid">
               <div v-for="post in authorPost" :key="post.id">
-                <post :post="post"/>
-
+                <post :post="post" />
               </div>
             </div>
           </div>
@@ -28,8 +27,7 @@ export default {
   components: { ContentRight, Post },
   props: ["user_id"],
   data() {
-    return {
-    };
+    return {};
   },
   created() {
     this.getAuthorPosts(this.user_id);
@@ -41,10 +39,10 @@ export default {
     ...mapGetters(["authorPost"]),
   },
   watch: {
-      '$route.path': function(){
-    console.log(this.$route.params.id);
-    this.getAuthorPosts(this.user_id);
-      }
+    "$route.path": function () {
+      console.log(this.$route.params.id);
+      this.getAuthorPosts(this.user_id);
+    },
   },
 };
 </script>

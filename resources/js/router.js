@@ -12,6 +12,7 @@ import Registered from './pages/Auth/Registered.vue'
 import Verify from './pages/Auth/Verify.vue'
 import NotFound from './pages/NotFound.vue'
 import CreatePost from './pages/CreatePost.vue'
+import EditPost from './pages/EditPost.vue'
 
 Vue.use(VueRouter)
 
@@ -74,6 +75,12 @@ const routes = [
         path: '/create',
         name: 'create',
         component: CreatePost,
+        props: true
+    },
+    {
+        path: '/edit/:post_id',
+        name: 'edit',
+        component: EditPost,
         props: true
     },
     {
