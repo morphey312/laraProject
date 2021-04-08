@@ -79,22 +79,22 @@ const store = new Vuex.Store({
                 console.log(err)
             });
         },
-        getCategoryPost({ commit }, category_id = 1) {
-            console.log('setCategoryPosts', category_id);
-            axios.get('/api/categoryPosts/' + category_id)
+        getCategoryPost({ commit }, data) {
+            console.log('setCategoryPosts 1', data);
+            axios.get(`/api/categoryPosts/${data.category_id}/?page=${data.page}`)
                 .then(res => {
                     commit('setCategoryPosts', res.data);
-                    console.log('setCategoryPosts', res.data);
+                    console.log('setCategoryPosts 2', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
         },
-        getAuthorPosts({ commit }, user_id = 1) {
-            console.log('setAuthorPosts', user_id);
-            axios.get('/api/authorPosts/' + user_id)
+        getAuthorPosts({ commit }, data) {
+            console.log('setAuthorPosts', data);
+            axios.get(`/api/authorPosts/${data.user_id}/?page=${data.page}`)
                 .then(res => {
                     commit('setAuthorPosts', res.data);
-                    console.log('getAuthorPosts', res.data);
+                    console.log('setAuthorPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })

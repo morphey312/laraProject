@@ -3214,6 +3214,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3228,14 +3232,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   created: function created() {
-    this.getAuthorPosts(this.user_id);
+    this.getOrderedAuthor();
   },
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(["getAuthorPosts"])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(["getAuthorPosts"])), {}, {
+    getOrderedAuthor: function getOrderedAuthor() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.getAuthorPosts({
+        user_id: this.user_id,
+        page: page
+      });
+    }
+  }),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(["authorPost"])),
   watch: {
     "$route.path": function $routePath() {
       console.log(this.$route.params.id);
-      this.getAuthorPosts(this.user_id);
+      this.getOrderedAuthor(this.user_id);
     }
   }
 });
@@ -3282,6 +3294,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3296,25 +3312,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   created: function created() {
-    console.log("getCategoryPost", this.category_id);
-    this.getCategoryPost(this.category_id);
+    this.getOrderCategories();
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(["getCategoryPost"])), {}, {
-    goTo: function goTo(id) {
-      this.getCategoryPost(id);
-      this.$router.push({
-        name: "categoryID",
-        params: {
-          id: id
-        }
+    getOrderCategories: function getOrderCategories() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.getCategoryPost({
+        category_id: this.category_id,
+        page: page
       });
     }
   }),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(["categoriesPost"])),
   watch: {
-    '$route.path': function $routePath() {
+    "$route.path": function $routePath() {
       console.log(this.$route.params.id);
-      this.getCategoryPost(this.category_id);
+      this.getOrderCategories();
     }
   }
 });
@@ -4093,24 +4106,22 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
         console.log(err);
       });
     },
-    getCategoryPost: function getCategoryPost(_ref2) {
+    getCategoryPost: function getCategoryPost(_ref2, data) {
       var commit = _ref2.commit;
-      var category_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      console.log('setCategoryPosts', category_id);
-      axios.get('/api/categoryPosts/' + category_id).then(function (res) {
+      console.log('setCategoryPosts 1', data);
+      axios.get("/api/categoryPosts/".concat(data.category_id, "/?page=").concat(data.page)).then(function (res) {
         commit('setCategoryPosts', res.data);
-        console.log('setCategoryPosts', res.data);
+        console.log('setCategoryPosts 2', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
     },
-    getAuthorPosts: function getAuthorPosts(_ref3) {
+    getAuthorPosts: function getAuthorPosts(_ref3, data) {
       var commit = _ref3.commit;
-      var user_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      console.log('setAuthorPosts', user_id);
-      axios.get('/api/authorPosts/' + user_id).then(function (res) {
+      console.log('setAuthorPosts', data);
+      axios.get("/api/authorPosts/".concat(data.user_id, "/?page=").concat(data.page)).then(function (res) {
         commit('setAuthorPosts', res.data);
-        console.log('getAuthorPosts', res.data);
+        console.log('setAuthorPosts', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -44174,15 +44185,22 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "content-grid" },
-                _vm._l(_vm.authorPost, function(post) {
-                  return _c(
-                    "div",
-                    { key: post.id },
-                    [_c("post", { attrs: { post: post } })],
-                    1
-                  )
-                }),
-                0
+                [
+                  _vm._l(_vm.authorPost.data, function(post) {
+                    return _c(
+                      "div",
+                      { key: post.id },
+                      [_c("post", { attrs: { post: post } })],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c("pagination", {
+                    attrs: { data: _vm.authorPost },
+                    on: { "pagination-change-page": _vm.getOrderedAuthor }
+                  })
+                ],
+                2
               )
             ]),
             _vm._v(" "),
@@ -44230,15 +44248,22 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "content-grid" },
-                _vm._l(_vm.categoriesPost, function(post) {
-                  return _c(
-                    "div",
-                    { key: post.id },
-                    [_c("post", { attrs: { post: post } })],
-                    1
-                  )
-                }),
-                0
+                [
+                  _vm._l(_vm.categoriesPost.data, function(post) {
+                    return _c(
+                      "div",
+                      { key: post.id },
+                      [_c("post", { attrs: { post: post } })],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c("pagination", {
+                    attrs: { data: _vm.categoriesPost },
+                    on: { "pagination-change-page": _vm.getOrderCategories }
+                  })
+                ],
+                2
               )
             ]),
             _vm._v(" "),

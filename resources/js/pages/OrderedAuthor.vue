@@ -5,9 +5,13 @@
         <div class="content-grids">
           <div class="col-md-8 content-main">
             <div class="content-grid">
-              <div v-for="post in authorPost" :key="post.id">
+              <div v-for="post in authorPost.data" :key="post.id">
                 <post :post="post" />
               </div>
+              <pagination
+                :data="authorPost"
+                @pagination-change-page="getOrderedAuthor"
+              ></pagination>
             </div>
           </div>
           <content-right />
@@ -30,18 +34,22 @@ export default {
     return {};
   },
   created() {
-    this.getAuthorPosts(this.user_id);
+    this.getOrderedAuthor();
   },
   methods: {
     ...mapActions(["getAuthorPosts"]),
+    getOrderedAuthor(page = 1) {
+      this.getAuthorPosts({user_id: this.user_id, page: page});
+    },
   },
   computed: {
     ...mapGetters(["authorPost"]),
+
   },
   watch: {
     "$route.path": function () {
       console.log(this.$route.params.id);
-      this.getAuthorPosts(this.user_id);
+      this.getOrderedAuthor(this.user_id);
     },
   },
 };

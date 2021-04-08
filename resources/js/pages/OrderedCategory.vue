@@ -5,9 +5,13 @@
         <div class="content-grids">
           <div class="col-md-8 content-main">
             <div class="content-grid">
-              <div v-for="post in categoriesPost" :key="post.id">
+              <div v-for="post in categoriesPost.data" :key="post.id">
                 <post :post="post"></post>
               </div>
+              <pagination
+                :data="categoriesPost"
+                @pagination-change-page="getOrderCategories"
+              ></pagination>
             </div>
           </div>
           <content-right />
@@ -30,29 +34,22 @@ export default {
     return {};
   },
   created() {
-    console.log("getCategoryPost", this.category_id);
-    this.getCategoryPost(this.category_id);
+    this.getOrderCategories();
   },
   methods: {
     ...mapActions(["getCategoryPost"]),
-    goTo(id) {
-      this.getCategoryPost(id);
-      this.$router.push({
-        name: "categoryID",
-        params: {
-          id: id,
-        },
-      });
+    getOrderCategories(page = 1) {
+      this.getCategoryPost({ category_id: this.category_id, page: page });
     },
   },
   computed: {
     ...mapGetters(["categoriesPost"]),
   },
   watch: {
-      '$route.path': function(){
-    console.log(this.$route.params.id);
-    this.getCategoryPost(this.category_id);
-      }
+    "$route.path": function () {
+      console.log(this.$route.params.id);
+      this.getOrderCategories();
+    },
   },
 };
 </script>
