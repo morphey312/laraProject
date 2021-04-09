@@ -13,6 +13,11 @@
                 @pagination-change-page="getOrderCategories"
               ></pagination>
             </div>
+            <modal v-if="showModal">
+              <template v-slot:header>
+                <h3>Warning!</h3>
+              </template>
+            </modal>
           </div>
           <content-right />
           <div class="clearfix"></div>
@@ -24,11 +29,12 @@
 
 <script>
 import Post from "../components/Post.vue";
+import Modal from "../components/Modal.vue";
 import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "OrderedCategory",
-  components: { ContentRight, Post },
+  components: { ContentRight, Post, Modal },
   props: ["category_id"],
   data() {
     return {};
@@ -43,7 +49,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["categoriesPost"]),
+    ...mapGetters(["categoriesPost", "showModal"]),
   },
   watch: {
     "$route.path": function () {

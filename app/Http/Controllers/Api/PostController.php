@@ -37,7 +37,7 @@ class PostController extends Controller
 
     public function authorPosts($user_id)
     {
-        $posts = Post::with(['user', 'category'])->where('user_id', $user_id)->paginate(3);
+        $posts = Post::with(['user', 'category'])->where('user_id', $user_id)->OrderBy('id', 'desc')->paginate(3);
         return response()->json($posts);
     }
 
@@ -61,24 +61,10 @@ class PostController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $post = new Post;
-        $post->user_id = $request->user()->id;
-        $post->category_id = $request->category_id;
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->published_at = $request->published_at;
+        $validData = $request;
+        Post::addPost($validData, $request->user()->id);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file')->storeAs(
-                '/images/',
-                $request->user()->id . time() . md5_file($request->file('file')) . '.' . $request->file('file')->extension(),
-                'public'
-            );
-        }
-        $post->img = $file;
-        $post->save();
-
-        return response()->json($post, 201);
+        return response()->json($request, 201);
     }
 
     public function edit(EditRequest $request)

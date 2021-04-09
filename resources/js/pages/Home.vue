@@ -13,6 +13,11 @@
                 @pagination-change-page="getPagination"
               ></pagination>
             </div>
+            <modal v-if="showModal">
+              <template v-slot:header>
+                <h3>Warning!</h3>
+              </template>
+            </modal>
           </div>
           <content-right />
           <div class="clearfix"></div>
@@ -24,10 +29,12 @@
 
 <script>
 import Post from "../components/Post.vue";
+import Modal from "../components/Modal.vue";
 import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  components: { ContentRight, Post },
+  name: "Home",
+  components: { ContentRight, Post, Modal },
   data() {
     return {
       post: {},
@@ -43,7 +50,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["currentPages"]),
+    ...mapGetters(["currentPages", "showModal"]),
   },
 };
 </script>

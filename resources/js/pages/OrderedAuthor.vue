@@ -13,6 +13,11 @@
                 @pagination-change-page="getOrderedAuthor"
               ></pagination>
             </div>
+            <modal v-if="showModal">
+              <template v-slot:header>
+                <h3>Warning!</h3>
+              </template>
+            </modal>
           </div>
           <content-right />
           <div class="clearfix"></div>
@@ -24,11 +29,12 @@
 
 <script>
 import Post from "../components/Post.vue";
+import Modal from "../components/Modal.vue";
 import ContentRight from "../components/ContentRight.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "OrderedAuthor",
-  components: { ContentRight, Post },
+  components: { ContentRight, Post, Modal },
   props: ["user_id"],
   data() {
     return {};
@@ -39,12 +45,11 @@ export default {
   methods: {
     ...mapActions(["getAuthorPosts"]),
     getOrderedAuthor(page = 1) {
-      this.getAuthorPosts({user_id: this.user_id, page: page});
+      this.getAuthorPosts({ user_id: this.user_id, page: page });
     },
   },
   computed: {
-    ...mapGetters(["authorPost"]),
-
+    ...mapGetters(["authorPost", "showModal"]),
   },
   watch: {
     "$route.path": function () {

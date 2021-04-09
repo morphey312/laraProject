@@ -25,7 +25,8 @@
         <button
           type="button"
           class="btn btn-danger"
-          @click="deletePost(post.id)"
+          @click="setShowModal({ showModal: true, id: post.id })"
+          id="show-modal"
         >
           DELETE
         </button>
@@ -48,7 +49,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["deletePost"]),
+    ...mapActions(["deletePost", "setShowModal"]),
 
     shortText(str) {
       if (str.length > 200) {

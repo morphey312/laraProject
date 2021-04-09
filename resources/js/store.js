@@ -15,6 +15,8 @@ const store = new Vuex.Store({
         categories: {},
         categoriesPost: {},
         currentPages: {},
+        showModal: false,
+        idForDelete: 0,
         errors: [],
     },
     mutations: {
@@ -42,10 +44,27 @@ const store = new Vuex.Store({
         setCurrentPages(state, data) {
             state.currentPages = data;
         },
+        setShowModal(state, data) {
+            state.showModal = data.showModal;
+            state.idForDelete = data.id;
+
+        },
         deletePost(state, id) {
-            let arr = state.currentPages.data;
-            let index = arr.findIndex(item => item.id === id);
-            state.currentPages.data.splice(index, 1);
+            if (state.currentPages.data) {
+                let arrPost = state.currentPages.data;
+                let indexPost = arrPost.findIndex(item => item.id === id);
+                state.currentPages.data.splice(indexPost, 1);
+            };
+            if (state.authorPost.data) {
+                let arrAuthor = state.authorPost.data;
+                let indexAuthor = arrAuthor.findIndex(item => item.id === id);
+                state.authorPost.data.splice(indexAuthor, 1);
+            };
+            if (state.categoriesPost.data) {
+                let arrCategory = state.categoriesPost.data;
+                let indexCategory = arrCategory.findIndex(item => item.id === id);
+                state.categoriesPost.data.splice(indexCategory, 1);
+            };
         },
     },
     getters: {
@@ -69,6 +88,8 @@ const store = new Vuex.Store({
         },
         errors: state => state.errors,
         currentPages: state => state.currentPages,
+        showModal: state => state.showModal,
+        idForDelete: state => state.idForDelete,
     },
     actions: {
         getCurrentPages({ commit }, page) {
@@ -142,7 +163,7 @@ const store = new Vuex.Store({
             console.log('createPost 3', data.user_id);
             axios.post('/api/posts', data.form)
                 .then(res => {
-                    if (res.status == 200) {
+                    if (res.status == 201) {
                         router.push({
                             name: "authorPostsID",
                             params: { user_id: data.user_id },
@@ -166,6 +187,11 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
+        setShowModal({ commit, dispatch }, data) {
+            console.log(data);
+            commit('setShowModal', data);
+
+        },
         deletePost({ commit, dispatch }, id) {
             console.log('deletePost', id);
             axios.delete('/api/posts/' + id)
@@ -173,6 +199,7 @@ const store = new Vuex.Store({
                     if (res.data === 'ok') {
                         commit('deletePost', id);
                         dispatch('getCurrentPages');
+                        dispatch('setShowModal', {showModal: false, id: 0});
                     }
                 }).catch(err => {
                     console.log(err)
