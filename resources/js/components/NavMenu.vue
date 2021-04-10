@@ -5,7 +5,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li><router-link to="/">HOME</router-link></li>
-          <li><router-link to="/create">CREATE</router-link></li>
+          <li v-if="user"><router-link to="/create">CREATE NEW POST</router-link></li>
           <li><router-link to="/verify">verify</router-link></li>
           <li><router-link to="/contact">CONTACT</router-link></li>
           <li class="nav-item dropdown">
@@ -45,10 +45,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "NavMenu",
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters("auth", ["user"]),
   },
 };
 </script>

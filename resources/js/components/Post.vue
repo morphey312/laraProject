@@ -15,21 +15,23 @@
         <router-link :to="'/single/' + post.id" @click="goTo(post.id)">
           <span></span>READ MORE
         </router-link>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="goToEdit(post.id)"
-        >
-          EDIT
-        </button>
-        <button
-          type="button"
-          class="btn btn-danger"
-          @click="setShowModal({ showModal: true, id: post.id })"
-          id="show-modal"
-        >
-          DELETE
-        </button>
+        <div v-if="authorization">
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="goToEdit(post.id)"
+          >
+            EDIT
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            @click="setShowModal({ showModal: true, id: post.id })"
+            id="show-modal"
+          >
+            DELETE
+          </button>
+        </div>
       </div>
       <star-rating v-model="rating" />
     </div>
@@ -38,7 +40,7 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Post",
   components: { StarRating },
@@ -73,6 +75,29 @@ export default {
           post_id: id,
         },
       });
+    },
+  },
+  computed: {
+    ...mapGetters("auth", ["user"]),
+    authorization() {
+      console.log("user for role ", this.user);
+      if (this.user) {
+        if (this.user.role_id === 1) {
+          return true;
+        } else {
+          if (this.user.role_id === 2) {
+            if (this.user.id === this.post.user_id) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        }
+      } else {
+        return false;
+      }
     },
   },
 };

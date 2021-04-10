@@ -2034,6 +2034,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2080,11 +2087,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "NavMenu",
   data: function data() {
     return {};
-  }
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)("auth", ["user"]))
 });
 
 /***/ }),
@@ -2109,6 +2118,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -2183,6 +2194,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           post_id: id
         }
       });
+    }
+  }),
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)("auth", ["user"])), {}, {
+    authorization: function authorization() {
+      console.log("user for role ", this.user);
+
+      if (this.user) {
+        if (this.user.role_id === 1) {
+          return true;
+        } else {
+          if (this.user.role_id === 2) {
+            if (this.user.id === this.post.user_id) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        }
+      } else {
+        return false;
+      }
     }
   })
 });
@@ -3612,6 +3646,7 @@ __webpack_require__.r(__webpack_exports__);
       var commit = _ref.commit;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
         commit("setUserData", response.data);
+        console.log('setUserData', response.data);
       })["catch"](function () {
         localStorage.removeItem("authToken");
       });
@@ -4102,15 +4137,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
   state: {
     msg: '',
@@ -4293,7 +4328,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       console.log('createPost 3', data.user_id);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
             name: "authorPostsID",
             params: {
               user_id: data.user_id
@@ -4309,7 +4344,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       console.log('Edit 2', data);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
             name: "singleID",
             params: {
               id: data.post_id
@@ -4345,7 +4380,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
     }
   },
   modules: {
-    auth: _auth_js__WEBPACK_IMPORTED_MODULE_1__.default
+    auth: _auth_js__WEBPACK_IMPORTED_MODULE_0__.default
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -43018,15 +43053,17 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c(
-              "li",
-              [
-                _c("router-link", { attrs: { to: "/create" } }, [
-                  _vm._v("CREATE")
-                ])
-              ],
-              1
-            ),
+            _vm.user
+              ? _c(
+                  "li",
+                  [
+                    _c("router-link", { attrs: { to: "/create" } }, [
+                      _vm._v("CREATE NEW POST")
+                    ])
+                  ],
+                  1
+                )
+              : _vm._e(),
             _vm._v(" "),
             _c(
               "li",
@@ -43209,36 +43246,40 @@ var render = function() {
               [_c("span"), _vm._v("READ MORE\n      ")]
             ),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    return _vm.goToEdit(_vm.post.id)
-                  }
-                }
-              },
-              [_vm._v("\n        EDIT\n      ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                attrs: { type: "button", id: "show-modal" },
-                on: {
-                  click: function($event) {
-                    return _vm.setShowModal({
-                      showModal: true,
-                      id: _vm.post.id
-                    })
-                  }
-                }
-              },
-              [_vm._v("\n        DELETE\n      ")]
-            )
+            _vm.authorization
+              ? _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.goToEdit(_vm.post.id)
+                        }
+                      }
+                    },
+                    [_vm._v("\n          EDIT\n        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button", id: "show-modal" },
+                      on: {
+                        click: function($event) {
+                          return _vm.setShowModal({
+                            showModal: true,
+                            id: _vm.post.id
+                          })
+                        }
+                      }
+                    },
+                    [_vm._v("\n          DELETE\n        ")]
+                  )
+                ])
+              : _vm._e()
           ],
           1
         ),

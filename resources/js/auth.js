@@ -23,6 +23,7 @@ export default {
                 .get("/api/user")
                 .then(response => {
                     commit("setUserData", response.data);
+                    console.log('setUserData', response.data);
                 })
                 .catch(() => {
                     localStorage.removeItem("authToken");
