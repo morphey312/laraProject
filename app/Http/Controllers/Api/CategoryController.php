@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function get(Request $request)
     {
-        $categories = Category::orderBy('id')->limit('5')->get();
+        $categories = Category::orderBy('id')->get();
         return response()->json($categories);
     }
 }

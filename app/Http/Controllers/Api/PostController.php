@@ -7,8 +7,10 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\EditRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Policies\PostPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use App\Http\Controllers\Auth\AuthenticationController;
 
 class PostController extends Controller
 {
@@ -69,15 +71,19 @@ class PostController extends Controller
 
     public function edit(EditRequest $request)
     {
+        $post= (new Post)::find($request->id);
+        $this->authorize('update', $post);
         $validData = $request;
         Post::updatePost($validData, $request->user()->id);
 
         return response()->json($request, 201);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        Post::destroy($id);
+        $post= (new Post)::find($request->id);
+        $this->authorize('delete', $post);
+        Post::destroy($request->id);
 
         return response()->json("ok");
     }
