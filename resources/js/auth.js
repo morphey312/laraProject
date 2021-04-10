@@ -1,3 +1,4 @@
+import router from './router'
 import axios from "axios";
 
 export default {
@@ -19,6 +20,7 @@ export default {
 
     actions: {
         getUserData({ commit }) {
+            console.log('I`m here');
             axios
                 .get("/api/user")
                 .then(response => {
@@ -30,33 +32,32 @@ export default {
                 });
         },
         sendLoginRequest({ commit }, data) {
-            console.log('sendLoginRequest 1', data);
             commit("setErrors", {}, { root: true });
             return axios
                 .post('/api/login', data)
                 .then(response => {
                     commit("setUserData", response.data.user);
                     localStorage.setItem("authToken", response.data.token);
-                    console.log('sendLoginRequest 2 ', response.data);
                 }).catch(err => {
                     console.log(err)
                 });
         },
         sendRegisterRequest({ commit }, data) {
-            console.log('sendRegisterRequest 1', data);
             commit("setErrors", {}, { root: true });
             return axios
                 .post("/api/register", data)
                 .then(response => {
                     commit("setUserData", response.data.user);
                     localStorage.setItem("authToken", response.data.token);
-                    console.log('sendRegisterRequest 2 ', response.data);
                 });
         },
         sendLogoutRequest({ commit }) {
             axios.post("/api/logout").then(() => {
                 commit("setUserData", null);
                 localStorage.removeItem("authToken");
+                router.push({
+                    name: "home"
+                });
             });
         },
         sendVerifyResendRequest() {

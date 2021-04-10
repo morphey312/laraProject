@@ -13,6 +13,7 @@ import Verify from './pages/Auth/Verify.vue'
 import NotFound from './pages/NotFound.vue'
 import CreatePost from './pages/CreatePost.vue'
 import EditPost from './pages/EditPost.vue'
+import store from './store';
 
 Vue.use(VueRouter)
 
@@ -59,6 +60,9 @@ const routes = [
         path: '/registered',
         name: 'registered',
         component: Registered,
+        meta: {
+			requiresAuth: true
+		  }
     },
     {
         path: '/verify',
@@ -75,13 +79,19 @@ const routes = [
         path: '/create',
         name: 'create',
         component: CreatePost,
-        props: true
+        props: true,
+        meta: {
+			requiresAuth: true
+		  }
     },
     {
         path: '/edit/:post_id',
         name: 'edit',
         component: EditPost,
-        props: true
+        props: true,
+        meta: {
+			requiresAuth: true
+		  }
     },
     {
         path: '/404',
@@ -93,6 +103,8 @@ const routes = [
         redirect: '/404'
     }
 ]
+
+
 
 const router = new VueRouter({
     mode: 'history',

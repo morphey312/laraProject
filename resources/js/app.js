@@ -23,7 +23,16 @@ Vue.component('modal', { template: "#modal-template" });
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-
+router.beforeEach(async (to, from, next) => {
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    let user = await store.getters['auth/user'];
+    console.log('user', user);
+    if (requiresAuth && !user) {
+        next('/');
+    } else {
+        next();
+    }
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
