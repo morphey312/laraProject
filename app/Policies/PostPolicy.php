@@ -54,9 +54,13 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->id === $post->user_id
-            ? Response::allow()
-            : Response::deny('You do not own this post.');
+        if ($user->role_id === 1) {
+            return true;
+        } else {
+            return $user->id === $post->user_id
+                ? Response::allow()
+                : Response::deny('You do not own this post.');
+        };
     }
 
     /**
@@ -68,7 +72,13 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id === $post->user_id;
+        if ($user->role_id === 1) {
+            return true;
+        } else {
+            return $user->id === $post->user_id
+                ? Response::allow()
+                : Response::deny('You do not own this post.');
+        };
     }
 
     /**

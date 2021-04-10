@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Policies\PostPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Auth\AuthenticationController;
 
 class PostController extends Controller
@@ -84,7 +85,7 @@ class PostController extends Controller
         $post= (new Post)::find($request->id);
         $this->authorize('delete', $post);
         Post::destroy($request->id);
-
+        Storage::disk('public')->delete($post->img);
         return response()->json("ok");
     }
 }

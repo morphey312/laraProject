@@ -20,12 +20,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
-        Category::factory(10)->create();
-        Post::factory(20)->create();
-        Tag::factory(10)->create();
-        Vote::factory(20)->create();
-        PostsTags::factory(80)->create();
+        $this->call([
+            User::class,
+            Category::class,
+            Post::class,
+            Tag::class,
+            Vote::class,
+            PostsTags::class,
+        ]);
         DB::insert('insert into roles (name) values ("administrator")');
         DB::insert('insert into roles (name) values ("author")');
     }

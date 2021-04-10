@@ -14,6 +14,6 @@ class PostsTagsSeeder extends Seeder
      */
     public function run()
     {
-        PostsTags::factory(80)->create();
+        PostsTags::factory(20)->create();
     }
 }

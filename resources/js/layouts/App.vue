@@ -1,7 +1,7 @@
 <template>
   <div>
     <vueHeader />
-    <router-view />
+        <router-view />
     <vueFooter />
   </div>
 </template>

@@ -22,13 +22,12 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            //
             'user_id' => $this->faker->randomDigitNotNull,
             'category_id' => $this->faker->randomDigitNotNull,
             'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'content' => $this->faker->text($maxNbChars = 400),
             'published_at' => now(),
-            'img' => $this->faker->imageUrl($width = 640, $height = 480),
+            'img' => 'images//' . ($this->faker->image($dir = 'storage\app\public\images', $width = 640, $height = 480, 'cats', false)),
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -57,7 +58,8 @@ class Post extends Model
         $post->content = $validData->content;
         $post->published_at = $validData->published_at;
         if ($validData->file('file')) {
-            $file = $validData->file('file')->storeAs(
+        Storage::disk('public')->delete($post->img);
+        $file = $validData->file('file')->storeAs(
                 '/images/',
                 $userId . time() . md5_file($validData->file('file')) . '.' . $validData->file('file')->extension(),
                 'public'
@@ -67,3 +69,5 @@ class Post extends Model
         $post->save();
     }
 }
+
+
