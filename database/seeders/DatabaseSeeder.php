@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            User::class,
-            Category::class,
-            Post::class,
-            Tag::class,
-            Vote::class,
-            PostsTags::class,
+            UserSeeder::class,
+            CategorySeeder::class,
+            PostSeeder::class,
+            TagSeeder::class,
+            VoteSeeder::class,
+            PostsTagsSeeder::class,
         ]);
         DB::insert('insert into roles (name) values ("administrator")');
         DB::insert('insert into roles (name) values ("author")');
