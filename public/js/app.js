@@ -2179,10 +2179,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ["post"],
   data: function data() {
     return {
-      rating: 4
+      rating: 3
     };
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(["deletePost", "setShowModal"])), {}, {
+  created: function created() {
+    this.getRating(this.post.id);
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(["deletePost", "setShowModal", "getRating"])), {}, {
     shortText: function shortText(str) {
       if (str.length > 200) {
         return str.slice(0, 196) + "...";
@@ -2207,7 +2210,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)("auth", ["user"])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)("auth", ["user"])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(["ratingAVG"])), {}, {
     authorization: function authorization() {
       console.log("user for role ", this.user);
 
@@ -4204,16 +4207,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vuex__WEBPACK_IMPORTED_MODULE_0__.default);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_0__.default.Store({
+vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
   state: {
     msg: '',
     singlePost: {},
@@ -4225,6 +4228,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__.default.Store({
     currentPages: {},
     showModal: false,
     idForDelete: 0,
+    rating: 0,
     errors: []
   },
   mutations: {
@@ -4255,6 +4259,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__.default.Store({
     setShowModal: function setShowModal(state, data) {
       state.showModal = data.showModal;
       state.idForDelete = data.id;
+    },
+    setRating: function setRating(state, data) {
+      state.rating = data;
     },
     deletePost: function deletePost(state, id) {
       if (state.currentPages.data) {
@@ -4318,6 +4325,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__.default.Store({
     },
     idForDelete: function idForDelete(state) {
       return state.idForDelete;
+    },
+    ratingAVG: function ratingAVG(state) {
+      return state.rating;
     }
   },
   actions: {
@@ -4441,6 +4451,15 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__.default.Store({
             id: 0
           });
         }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getRating: function getRating(_ref12, id) {
+      var commit = _ref12.commit;
+      axios.get('/api/ratings/' + id).then(function (res) {
+        commit('setRating', res.data);
+        console.log('setRating', res.data);
       })["catch"](function (err) {
         console.log(err);
       });

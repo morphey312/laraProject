@@ -47,11 +47,14 @@ export default {
   props: ["post"],
   data() {
     return {
-      rating: 4,
+        rating:3,
     };
   },
+  created() {
+    this.getRating(this.post.id);
+  },
   methods: {
-    ...mapActions(["deletePost", "setShowModal"]),
+    ...mapActions(["deletePost", "setShowModal", "getRating"]),
 
     shortText(str) {
       if (str.length > 200) {
@@ -79,6 +82,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["user"]),
+    ...mapGetters(["ratingAVG"]),
     authorization() {
       console.log("user for role ", this.user);
       if (this.user) {

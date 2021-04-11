@@ -17,6 +17,7 @@ const store = new Vuex.Store({
         currentPages: {},
         showModal: false,
         idForDelete: 0,
+        rating: 0,
         errors: [],
     },
     mutations: {
@@ -48,6 +49,9 @@ const store = new Vuex.Store({
             state.showModal = data.showModal;
             state.idForDelete = data.id;
 
+        },
+        setRating (state, data) {
+            state.rating = data;
         },
         deletePost(state, id) {
             if (state.currentPages.data) {
@@ -90,6 +94,7 @@ const store = new Vuex.Store({
         currentPages: state => state.currentPages,
         showModal: state => state.showModal,
         idForDelete: state => state.idForDelete,
+        ratingAVG: state => state.rating,
     },
     actions: {
         getCurrentPages({ commit }, page) {
@@ -204,7 +209,16 @@ const store = new Vuex.Store({
                 }).catch(err => {
                     console.log(err)
                 })
-        }
+        },
+        getRating({ commit }, id) {
+            axios.get('/api/ratings/' + id)
+                .then(res => {
+                        commit('setRating', res.data);
+                        console.log('setRating', res.data);
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
     },
     modules: {
         auth,

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\VoteController;
 use App\Http\Controllers\Auth\AuthenticationController;
 use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Auth\Events\Login;
@@ -35,6 +36,8 @@ Route::get('orderPosts', [PostController::class, 'getOrderPosts']);
 Route::get('single/{id}', [PostController::class, 'post']);
 
 Route::get('categories', [CategoryController::class, 'get']);
+
+Route::get('ratings/{rating}', [VoteController::class, 'rating']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('email/verify/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
