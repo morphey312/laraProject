@@ -122,17 +122,6 @@ export default {
       form.append("category_id", this.selectedCategory);
       form.append("content", document.getElementsByName("content")[0].value);
       form.append("id", id);
-      console.log(document.getElementsByName("title")[0].value);
-      console.log(
-        "category_id",
-        document.getElementsByName("category_id")[0].value
-      );
-      console.log(
-        "published_at",
-        document.getElementsByName("published_at")[0].value
-      );
-      console.log(this.selectedCategory);
-      console.log("content", document.getElementsByName("content")[0].value);
 
       this.editPost({ post_id: id, form: form });
     },
@@ -142,11 +131,9 @@ export default {
     ...mapGetters("auth", ["user"]),
     getDate() {
       this.published_at = this.singlePost.published_at.slice(0, 10);
-      console.log("date-----", this.published_at);
     },
     getSelectedCategory() {
       this.selectedCategory = this.singlePost.category.id;
-      console.log("date-----", this.selectedCategory);
     },
   },
   watch: {

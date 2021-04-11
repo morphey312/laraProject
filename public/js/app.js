@@ -2179,7 +2179,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ["post"],
   data: function data() {
     return {
-      rating: 3
+      rating: 0
     };
   },
   created: function created() {
@@ -2232,7 +2232,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return false;
       }
     }
-  })
+  }),
+  watch: {//   ratingAVG () {
+    //       this.rating = this.ratingAVG;
+    //   }
+  }
 });
 
 /***/ }),
@@ -3151,11 +3155,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       form.append("category_id", this.selectedCategory);
       form.append("content", document.getElementsByName("content")[0].value);
       form.append("id", id);
-      console.log(document.getElementsByName("title")[0].value);
-      console.log("category_id", document.getElementsByName("category_id")[0].value);
-      console.log("published_at", document.getElementsByName("published_at")[0].value);
-      console.log(this.selectedCategory);
-      console.log("content", document.getElementsByName("content")[0].value);
       this.editPost({
         post_id: id,
         form: form
@@ -3165,11 +3164,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(["categories", "singlePost"])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)("auth", ["user"])), {}, {
     getDate: function getDate() {
       this.published_at = this.singlePost.published_at.slice(0, 10);
-      console.log("date-----", this.published_at);
     },
     getSelectedCategory: function getSelectedCategory() {
       this.selectedCategory = this.singlePost.category.id;
-      console.log("date-----", this.selectedCategory);
     }
   }),
   watch: {
@@ -4455,9 +4452,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
         console.log(err);
       });
     },
-    getRating: function getRating(_ref12, id) {
+    getRating: function getRating(_ref12, rating) {
       var commit = _ref12.commit;
-      axios.get('/api/ratings/' + id).then(function (res) {
+      axios.get('/api/ratings/' + rating).then(function (res) {
         commit('setRating', res.data);
         console.log('setRating', res.data);
       })["catch"](function (err) {

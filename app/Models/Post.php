@@ -31,7 +31,7 @@ class Post extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('rating');
     }
 
     public static function addPost($validData, $userId)

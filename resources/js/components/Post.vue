@@ -47,7 +47,7 @@ export default {
   props: ["post"],
   data() {
     return {
-        rating:3,
+        rating:0,
     };
   },
   created() {
@@ -104,5 +104,10 @@ export default {
       }
     },
   },
+  watch: {
+    //   ratingAVG () {
+    //       this.rating = this.ratingAVG;
+    //   }
+  }
 };
 </script>

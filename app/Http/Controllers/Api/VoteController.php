@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    public function rating(Post $post, Request $request)
+    public function rating(Post $rating, Request $request)
     {
-        
+        $res =$rating->users()->avg('rating');
+
+
+        return response()->json($res, 200);
     }
 }

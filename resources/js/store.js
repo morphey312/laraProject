@@ -210,8 +210,8 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
-        getRating({ commit }, id) {
-            axios.get('/api/ratings/' + id)
+        getRating({ commit }, rating) {
+            axios.get('/api/ratings/' + rating)
                 .then(res => {
                         commit('setRating', res.data);
                         console.log('setRating', res.data);
