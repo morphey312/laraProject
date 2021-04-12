@@ -72,7 +72,7 @@ class PostController extends Controller
 
     public function edit(EditRequest $request)
     {
-        $post= (new Post)::find($request->id);
+        $post = (new Post)::find($request->id);
         $this->authorize('update', $post);
         $validData = $request;
         Post::updatePost($validData, $request->user()->id);
@@ -82,7 +82,7 @@ class PostController extends Controller
 
     public function delete(Request $request)
     {
-        $post= (new Post)::find($request->id);
+        $post = (new Post)::find($request->id);
         $this->authorize('delete', $post);
         Post::destroy($request->id);
         Storage::disk('public')->delete($post->img);

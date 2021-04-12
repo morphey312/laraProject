@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 content-right">
+  <div class="col-md-4 col-12 content-right">
     <div class="recent">
       <h3>RECENT POSTS</h3>
       <ul>
@@ -7,23 +7,6 @@
           <router-link :to="'/single/' + post.id" @click="goTo(post.id)">
             {{ post.title }}
           </router-link>
-        </li>
-      </ul>
-    </div>
-    <div class="comments">
-      <h3>RECENT COMMENTS</h3>
-      <ul>
-        <li>
-          <router-link to="#">Amada Doe </router-link> on
-          <router-link to="#">Hello World!</router-link>
-        </li>
-        <li>
-          <router-link to="#">Peter Doe </router-link> on
-          <router-link to="#"> Photography</router-link>
-        </li>
-        <li>
-          <router-link to="#">Steve Roberts </router-link> on
-          <router-link to="#">HTML5/CSS3</router-link>
         </li>
       </ul>
     </div>

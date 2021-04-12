@@ -41,13 +41,6 @@
             <div class="clearfix"></div>
           </li>
         </ul>
-        <div class="content-form">
-          <h3>Leave a comment</h3>
-          <form>
-            <textarea placeholder="Message"></textarea>
-            <input type="submit" value="SEND" />
-          </form>
-        </div>
       </div>
       <content-right />
       <div class="clearfix"></div>
@@ -81,7 +74,6 @@ export default {
   },
   watch: {
     "$route.path": function () {
-      console.log(this.$route.params.id);
       this.getPost(this.id);
     },
   },

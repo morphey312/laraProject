@@ -2,8 +2,8 @@
   <div>
     <div class="content">
       <div class="container">
-        <div class="content-grids">
-          <div class="col-md-8 content-main">
+        <div class="">
+          <div class="col-md-8 col-12 content-main">
             <div class="content-grid">
               <div v-for="post in currentPages.data" :key="post.id">
                 <post :post="post" />

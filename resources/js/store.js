@@ -100,37 +100,30 @@ const store = new Vuex.Store({
         getCurrentPages({ commit }, page) {
             axios.get("api/curentPage?page=" + page).then((res) => {
                 commit('setCurrentPages', res.data);
-                console.log('setCurrentPages', res.data);
             }).catch(err => {
                 console.log(err)
             });
         },
         getCategoryPost({ commit }, data) {
-            console.log('setCategoryPosts 1', data);
             axios.get(`/api/categoryPosts/${data.category_id}/?page=${data.page}`)
                 .then(res => {
                     commit('setCategoryPosts', res.data);
-                    console.log('setCategoryPosts 2', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
         },
         getAuthorPosts({ commit }, data) {
-            console.log('setAuthorPosts', data);
             axios.get(`/api/authorPosts/${data.user_id}/?page=${data.page}`)
                 .then(res => {
                     commit('setAuthorPosts', res.data);
-                    console.log('setAuthorPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
         },
         getPost({ commit }, id = 1) {
-            console.log(id);
             axios.get('/api/single/' + id)
                 .then(res => {
                     commit('setPost', res.data);
-                    console.log('setPost', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
@@ -139,7 +132,6 @@ const store = new Vuex.Store({
             axios.get('/api/allPosts')
                 .then(res => {
                     commit('setPosts', res.data);
-                    console.log('setPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
@@ -148,7 +140,6 @@ const store = new Vuex.Store({
             axios.get('/api/orderPosts')
                 .then(res => {
                     commit('setOrderPosts', res.data);
-                    console.log('setorderPosts', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
@@ -157,15 +148,11 @@ const store = new Vuex.Store({
             axios.get('/api/categories')
                 .then(res => {
                     commit('setCategories', res.data);
-                    console.log('setCategories', res.data);
                 }).catch(err => {
                     console.log(err)
                 })
         },
         createPost({ commit }, data) {
-            console.log('createPost 1', data);
-            console.log('createPost 2', data.form);
-            console.log('createPost 3', data.user_id);
             axios.post('/api/posts', data.form)
                 .then(res => {
                     if (res.status == 201) {
@@ -179,7 +166,6 @@ const store = new Vuex.Store({
                 })
         },
         editPost({ commit }, data) {
-            console.log('Edit 2', data);
             axios.post('/api/posts', data.form)
                 .then(res => {
                     if (res.status == 201) {
@@ -193,12 +179,10 @@ const store = new Vuex.Store({
                 })
         },
         setShowModal({ commit, dispatch }, data) {
-            console.log(data);
             commit('setShowModal', data);
 
         },
         deletePost({ commit, dispatch }, id) {
-            console.log('deletePost', id);
             axios.delete('/api/posts/' + id)
                 .then(res => {
                     if (res.data === 'ok') {
@@ -210,15 +194,6 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
-        // getRating({ commit }, rating) {
-        //     axios.get('/api/ratings/' + rating)
-        //         .then(res => {
-        //                 commit('setRating', res.data);
-        //                 console.log('setRating', res.data);
-        //         }).catch(err => {
-        //             console.log(err)
-        //         })
-        // },
     },
     modules: {
         auth,

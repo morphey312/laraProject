@@ -1,6 +1,6 @@
 <template>
   <div class="content-grid-info">
-    <img :src="'../storage/' + post.img" alt="" />
+    <img class="img-fluid" :src="'../storage/' + post.img" :alt="post.title" />
     <div class="post-info">
       <h4>
         <router-link :to="'/single/' + post.id" @click="goTo(post.id)">
@@ -75,14 +75,12 @@ export default {
         .get("/api/ratings/" + rating)
         .then((res) => {
           this.ratingPost = res.data;
-          console.log("setRating", res.data);
         })
         .catch((err) => {
           console.log(err);
         });
     },
     async getVote(data) {
-      console.log("setVote", data);
       let vote = new FormData();
       vote.append("rating", data.rating);
       if (this.user) {
@@ -90,23 +88,12 @@ export default {
           .post("/api/voting/" + data.post + "/users/" + data.user, vote)
           .then((res) => {
             this.voteRating = res.data;
-            console.log("voteRating", res.data);
+            alert(res.data);
           })
           .catch((err) => {
             console.log(err);
           });
       }
-      //   if (this.voteRating[0]) {
-      //     console.log("Vote rating =", this.voteRating[0].pivot.rating);
-      //     alert(
-      //       "you voted for this post on " +
-      //         this.voteRating[0].pivot.rating +
-      //         " stars"
-      //     );
-      //   } else {
-      //     this.voteRating = 0;
-      //     axios.post();
-      //   }
     },
     shortText(str) {
       if (str.length > 200) {
@@ -136,7 +123,6 @@ export default {
     ...mapGetters("auth", ["user"]),
     ...mapGetters(["ratingAVG"]),
     authorization() {
-      console.log("user for role ", this.user);
       if (this.user) {
         if (this.user.role_id === 1) {
           return true;
@@ -163,5 +149,8 @@ export default {
 .rating {
   display: flex;
   justify-content: space-between;
+}
+.img-fluid {
+    max-width: 600px;
 }
 </style>

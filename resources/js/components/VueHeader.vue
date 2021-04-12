@@ -29,7 +29,6 @@ export default {
   components: { NavMenu },
   name: "VueHeader",
   mounted() {
-    console.log("current user is ", this.user);
   },
   methods: {
     ...mapActions("auth", ["sendLogoutRequest"]),

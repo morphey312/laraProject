@@ -26,7 +26,6 @@ Vue.component('modal', { template: "#modal-template" });
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     let user = await store.getters['auth/user'];
-    console.log('user', user);
     if (requiresAuth && !user) {
         next('/');
     } else {

@@ -1922,23 +1922,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ContentRight",
@@ -2052,32 +2035,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2239,7 +2196,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _context.next = 6;
                 return axios.post("/api/voting/" + data.post + "/users/" + data.user, vote).then(function (res) {
                   _this2.voteRating = res.data;
-                  console.log("voteRating", res.data);
+                  alert(res.data);
                 })["catch"](function (err) {
                   console.log(err);
                 });
@@ -3594,13 +3551,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4267,15 +4217,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
+vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
   state: {
     msg: '',
@@ -4395,7 +4345,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       var commit = _ref.commit;
       axios.get("api/curentPage?page=" + page).then(function (res) {
         commit('setCurrentPages', res.data);
-        console.log('setCurrentPages', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4435,7 +4384,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       var commit = _ref5.commit;
       axios.get('/api/allPosts').then(function (res) {
         commit('setPosts', res.data);
-        console.log('setPosts', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4444,7 +4392,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       var commit = _ref6.commit;
       axios.get('/api/orderPosts').then(function (res) {
         commit('setOrderPosts', res.data);
-        console.log('setorderPosts', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4453,19 +4400,15 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       var commit = _ref7.commit;
       axios.get('/api/categories').then(function (res) {
         commit('setCategories', res.data);
-        console.log('setCategories', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     createPost: function createPost(_ref8, data) {
       var commit = _ref8.commit;
-      console.log('createPost 1', data);
-      console.log('createPost 2', data.form);
-      console.log('createPost 3', data.user_id);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
             name: "authorPostsID",
             params: {
               user_id: data.user_id
@@ -4481,7 +4424,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       console.log('Edit 2', data);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
             name: "singleID",
             params: {
               id: data.post_id
@@ -4495,13 +4438,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
     setShowModal: function setShowModal(_ref10, data) {
       var commit = _ref10.commit,
           dispatch = _ref10.dispatch;
-      console.log(data);
       commit('setShowModal', data);
     },
     deletePost: function deletePost(_ref11, id) {
       var commit = _ref11.commit,
           dispatch = _ref11.dispatch;
-      console.log('deletePost', id);
       axios["delete"]('/api/posts/' + id).then(function (res) {
         if (res.data === 'ok') {
           commit('deletePost', id);
@@ -4514,19 +4455,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       })["catch"](function (err) {
         console.log(err);
       });
-    } // getRating({ commit }, rating) {
-    //     axios.get('/api/ratings/' + rating)
-    //         .then(res => {
-    //                 commit('setRating', res.data);
-    //                 console.log('setRating', res.data);
-    //         }).catch(err => {
-    //             console.log(err)
-    //         })
-    // },
-
+    }
   },
   modules: {
-    auth: _auth_js__WEBPACK_IMPORTED_MODULE_0__.default
+    auth: _auth_js__WEBPACK_IMPORTED_MODULE_1__.default
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -9039,7 +8971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.rating[data-v-5e8280ea] {\n  display: flex;\n  justify-content: space-between;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.rating[data-v-5e8280ea] {\n  display: flex;\n  justify-content: space-between;\n}\n.img-fluid[data-v-5e8280ea] {\n    max-width: 600px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43797,7 +43729,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-4 content-right" }, [
+  return _c("div", { staticClass: "col-md-4 col-12 content-right" }, [
     _c("div", { staticClass: "recent" }, [
       _c("h3", [_vm._v("RECENT POSTS")]),
       _vm._v(" "),
@@ -43826,44 +43758,6 @@ var render = function() {
         }),
         0
       )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "comments" }, [
-      _c("h3", [_vm._v("RECENT COMMENTS")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c(
-          "li",
-          [
-            _c("router-link", { attrs: { to: "#" } }, [_vm._v("Amada Doe ")]),
-            _vm._v(" on\n        "),
-            _c("router-link", { attrs: { to: "#" } }, [_vm._v("Hello World!")])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c("router-link", { attrs: { to: "#" } }, [_vm._v("Peter Doe ")]),
-            _vm._v(" on\n        "),
-            _c("router-link", { attrs: { to: "#" } }, [_vm._v(" Photography")])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c("router-link", { attrs: { to: "#" } }, [
-              _vm._v("Steve Roberts ")
-            ]),
-            _vm._v(" on\n        "),
-            _c("router-link", { attrs: { to: "#" } }, [_vm._v("HTML5/CSS3")])
-          ],
-          1
-        )
-      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "clearfix" }),
@@ -44038,84 +43932,7 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            _c(
-              "li",
-              [
-                _c("router-link", { attrs: { to: "/contact" } }, [
-                  _vm._v("CONTACT")
-                ])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav-item dropdown" },
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "nav-link dropdown-toggle",
-                    attrs: {
-                      to: "#",
-                      id: "navbarDropdown",
-                      role: "button",
-                      "data-bs-toggle": "dropdown",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [_vm._v("\n            Dropdown\n          ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  {
-                    staticClass: "dropdown-menu",
-                    attrs: { "aria-labelledby": "navbarDropdown" }
-                  },
-                  [
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "dropdown-item", attrs: { to: "#" } },
-                          [_vm._v("Action")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "dropdown-item", attrs: { to: "#" } },
-                          [_vm._v("Another action")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "dropdown-item", attrs: { to: "#" } },
-                          [_vm._v("Something else here")]
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ],
-              1
-            ),
+            _c("li", { staticClass: "nav-item dropdown" }),
             _vm._v(" "),
             _c("div", { staticClass: "clearfix" })
           ])
@@ -44126,14 +43943,7 @@ var render = function() {
     _c("div", { staticClass: "clearfix" })
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -44157,7 +43967,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content-grid-info" }, [
-    _c("img", { attrs: { src: "../storage/" + _vm.post.img, alt: "" } }),
+    _c("img", {
+      staticClass: "img-fluid",
+      attrs: { src: "../storage/" + _vm.post.img, alt: _vm.post.title }
+    }),
     _vm._v(" "),
     _c("div", { staticClass: "post-info" }, [
       _c(
@@ -45555,11 +45368,11 @@ var render = function() {
       _c("div", { staticClass: "container" }, [
         _c(
           "div",
-          { staticClass: "content-grids" },
+          {},
           [
             _c(
               "div",
-              { staticClass: "col-md-8 content-main" },
+              { staticClass: "col-md-8 col-12 content-main" },
               [
                 _c(
                   "div",
@@ -45913,9 +45726,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "clearfix" })
             ])
-          ]),
-          _vm._v(" "),
-          _vm._m(0)
+          ])
         ]),
         _vm._v(" "),
         _c("content-right"),
@@ -45926,22 +45737,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-form" }, [
-      _c("h3", [_vm._v("Leave a comment")]),
-      _vm._v(" "),
-      _c("form", [
-        _c("textarea", { attrs: { placeholder: "Message" } }),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "submit", value: "SEND" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

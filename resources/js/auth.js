@@ -20,12 +20,10 @@ export default {
 
     actions: {
         getUserData({ commit }) {
-            console.log('I`m here');
             axios
                 .get("/api/user")
                 .then(response => {
                     commit("setUserData", response.data);
-                    console.log('setUserData', response.data);
                 })
                 .catch(() => {
                     localStorage.removeItem("authToken");

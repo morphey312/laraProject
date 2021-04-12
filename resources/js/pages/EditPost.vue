@@ -107,7 +107,6 @@ export default {
     ...mapActions(["getCategories", "editPost", "getPost"]),
     selectFile(event) {
       this.file = event.target.files[0];
-      console.log(this.file);
     },
 
     updatePost(id) {
@@ -144,7 +143,6 @@ export default {
       }
     },
     "$route.path": function () {
-      console.log(this.$route.params.id);
       this.getAuthorPosts(this.user_id);
     },
   },

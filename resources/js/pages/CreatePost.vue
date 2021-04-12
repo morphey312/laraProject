@@ -100,7 +100,6 @@ export default {
     ...mapActions(["getCategories", "createPost"]),
     selectFile(event) {
       this.file = event.target.files[0];
-      console.log(this.file);
     },
     sendPost(id) {
       let form = new FormData();
@@ -112,10 +111,6 @@ export default {
       );
       form.append("category_id", this.selectedCategory);
       form.append("content", document.getElementsByName("content")[0].value);
-      console.log(document.getElementsByName("title")[0].value);
-      console.log(document.getElementsByName("published_at")[0].value);
-      console.log(this.selectedCategory);
-      console.log(document.getElementsByName("content")[0].value);
 
       this.createPost({ user_id: id, form: form });
     },

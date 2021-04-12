@@ -53,7 +53,6 @@ export default {
   },
   watch: {
     "$route.path": function () {
-      console.log(this.$route.params.id);
       this.getOrderCategories();
     },
   },
