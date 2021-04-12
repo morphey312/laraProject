@@ -210,15 +210,15 @@ const store = new Vuex.Store({
                     console.log(err)
                 })
         },
-        getRating({ commit }, rating) {
-            axios.get('/api/ratings/' + rating)
-                .then(res => {
-                        commit('setRating', res.data);
-                        console.log('setRating', res.data);
-                }).catch(err => {
-                    console.log(err)
-                })
-        },
+        // getRating({ commit }, rating) {
+        //     axios.get('/api/ratings/' + rating)
+        //         .then(res => {
+        //                 commit('setRating', res.data);
+        //                 console.log('setRating', res.data);
+        //         }).catch(err => {
+        //             console.log(err)
+        //         })
+        // },
     },
     modules: {
         auth,

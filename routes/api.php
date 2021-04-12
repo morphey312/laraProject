@@ -38,6 +38,7 @@ Route::get('single/{id}', [PostController::class, 'post']);
 Route::get('categories', [CategoryController::class, 'get']);
 
 Route::get('ratings/{rating}', [VoteController::class, 'rating']);
+Route::get('voting/{vote}/users/{user}', [VoteController::class, 'vote']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('email/verify/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
