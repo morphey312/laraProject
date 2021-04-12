@@ -2097,7 +2097,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "NavMenu",
@@ -2745,7 +2744,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.sendRegisterRequest(this.details).then(function () {
         _this.$router.push({
-          name: "registered"
+          name: "home"
         });
       });
     }
@@ -44038,16 +44037,6 @@ var render = function() {
                   1
                 )
               : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "li",
-              [
-                _c("router-link", { attrs: { to: "/verify" } }, [
-                  _vm._v("verify")
-                ])
-              ],
-              1
-            ),
             _vm._v(" "),
             _c(
               "li",

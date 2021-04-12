@@ -97,7 +97,7 @@ export default {
 
     register () {
       this.sendRegisterRequest(this.details).then(() => {
-        this.$router.push({ name: "registered" });
+        this.$router.push({ name: "home" });
       });
     }
   },
