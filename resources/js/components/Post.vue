@@ -36,7 +36,9 @@
       <div>
         <star-rating
           v-model="rating"
-          @rating-selected="getVote({ post: post.id, user: user.id })"
+          @rating-selected="
+            getVote({ post: post.id, user: user.id, rating: rating })
+          "
         />
         <div class="rating">
           <div v-if="ratingPost > 0">
@@ -81,9 +83,11 @@ export default {
     },
     async getVote(data) {
       console.log("setVote", data);
+      let vote = new FormData();
+      vote.append("rating", data.rating);
       if (this.user) {
         await axios
-          .get("/api/voting/" + data.post + "/users/" + data.user)
+          .post("/api/voting/" + data.post + "/users/" + data.user, vote)
           .then((res) => {
             this.voteRating = res.data;
             console.log("voteRating", res.data);
@@ -92,17 +96,17 @@ export default {
             console.log(err);
           });
       }
-      if (this.voteRating[0]) {
-        console.log("Vote rating =", this.voteRating[0].pivot.rating);
-        alert(
-          "you voted for this post on " +
-            this.voteRating[0].pivot.rating +
-            " stars"
-        );
-      } else {
-        this.voteRating = 0;
-        axios.post();
-      }
+      //   if (this.voteRating[0]) {
+      //     console.log("Vote rating =", this.voteRating[0].pivot.rating);
+      //     alert(
+      //       "you voted for this post on " +
+      //         this.voteRating[0].pivot.rating +
+      //         " stars"
+      //     );
+      //   } else {
+      //     this.voteRating = 0;
+      //     axios.post();
+      //   }
     },
     shortText(str) {
       if (str.length > 200) {

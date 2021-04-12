@@ -2188,6 +2188,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2221,35 +2223,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var vote;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 console.log("setVote", data);
+                vote = new FormData();
+                vote.append("rating", data.rating);
 
                 if (!_this2.user) {
-                  _context.next = 4;
+                  _context.next = 6;
                   break;
                 }
 
-                _context.next = 4;
-                return axios.get("/api/voting/" + data.post + "/users/" + data.user).then(function (res) {
+                _context.next = 6;
+                return axios.post("/api/voting/" + data.post + "/users/" + data.user, vote).then(function (res) {
                   _this2.voteRating = res.data;
                   console.log("voteRating", res.data);
                 })["catch"](function (err) {
                   console.log(err);
                 });
 
-              case 4:
-                if (_this2.voteRating[0]) {
-                  console.log("Vote rating =", _this2.voteRating[0].pivot.rating);
-                  alert("you voted for this post on " + _this2.voteRating[0].pivot.rating + " stars");
-                } else {
-                  _this2.voteRating = 0;
-                  axios.post();
-                }
-
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -4272,15 +4268,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
   state: {
     msg: '',
@@ -4470,7 +4466,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       console.log('createPost 3', data.user_id);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
             name: "authorPostsID",
             params: {
               user_id: data.user_id
@@ -4486,7 +4482,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       console.log('Edit 2', data);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
             name: "singleID",
             params: {
               id: data.post_id
@@ -4531,7 +4527,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
 
   },
   modules: {
-    auth: _auth_js__WEBPACK_IMPORTED_MODULE_1__.default
+    auth: _auth_js__WEBPACK_IMPORTED_MODULE_0__.default
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -44261,7 +44257,11 @@ var render = function() {
           _c("star-rating", {
             on: {
               "rating-selected": function($event) {
-                return _vm.getVote({ post: _vm.post.id, user: _vm.user.id })
+                return _vm.getVote({
+                  post: _vm.post.id,
+                  user: _vm.user.id,
+                  rating: _vm.rating
+                })
               }
             },
             model: {
