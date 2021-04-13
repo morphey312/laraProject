@@ -10,11 +10,17 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    public function rating(Post $rating, Request $request)
+    public function rating(Post $rating, User $user, Request $request)
     {
         $res = $rating->users()->avg('rating');
-
-        return response()->json($res, 200);
+		// dump($user->id);
+		$arr = $rating->users->all();
+        foreach ($arr as $item) {
+        if ($item->pivot->user_id == $user->id) {
+			$postRating = ($item->pivot->rating);
+		}
+	}
+        return response()->json(['res' => $res, 'rating' => $postRating], 200);
     }
 
     public function vote(Post $vote, User $user, Request $request)
