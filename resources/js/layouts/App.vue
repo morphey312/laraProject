@@ -1,53 +1,31 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-      <router-link :to="{ name: 'home' }" class="navbar-brand"
-        >Laravel-Vue SPA</router-link
-      >
-      <button
-        class="navbar-toggler"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbarCollapse" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              data-toggle="collapse"
-              :to="{ name: 'home' }"
-            >
-              Home
-            </router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              data-toggle="collapse"
-              :to="{ name: 'about' }"
-            >
-              About
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="container">
-      <router-view></router-view>
-    </div>
+    <vueHeader />
+        <router-view />
+    <vueFooter />
   </div>
 </template>
 
 <script>
+import VueHeader from "../components/VueHeader.vue";
+import VueFooter from "../components/VueFooter.vue";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
-  watch: {
-    $route() {
-      $("#navbarCollapse").collapse("hide");
-    },
+  name: "App",
+  components: { VueFooter, VueHeader },
+  computed: {
+    ...mapGetters("auth", ["user"]),
+  },
+
+  mounted() {
+    if (localStorage.getItem("authToken")) {
+      this.getUserData();
+    }
+  },
+
+  methods: {
+    ...mapActions("auth", ["getUserData"]),
   },
 };
 </script>

@@ -8,7 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
-import router from './router'
+import router from './router';
+import store from './store';
 import App from './layouts/App.vue';
 /**
  * The following block of code may be used to automatically register your
@@ -17,11 +18,20 @@ import App from './layouts/App.vue';
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
+Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('modal', { template: "#modal-template" });
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+router.beforeEach(async (to, from, next) => {
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    let user = await store.getters['auth/user'];
+    if (requiresAuth && !user) {
+        next('/');
+    } else {
+        next();
+    }
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,5 +42,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router,
+    store,
     render: h => h(App)
 });
