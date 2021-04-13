@@ -44,7 +44,7 @@
           <div v-if="ratingPost > 0">
             AVG Rating {{ Math.round(ratingPost) }}
           </div>
-          <div v-if="rating > 0">Your Rating {{ rating }}</div>
+          <div v-if="rating" >Your Rating {{ rating }}</div>
         </div>
       </div>
     </div>
@@ -60,21 +60,27 @@ export default {
   props: ["post"],
   data() {
     return {
-      rating: 3,
+      rating: 0,
       ratingPost: null,
       voteRating: 0,
     };
   },
   created() {
-    this.getRating(this.post.id);
+    this.getRating({
+        post:this.post.id,
+        user:this.user.id,
+        });
   },
   methods: {
     ...mapActions(["deletePost", "setShowModal"]),
-    getRating(rating) {
-      axios
-        .get("/api/ratings/" + rating)
+    async getRating(data) {
+        console.log(data);
+      await axios
+        .get("/api/ratings/" + data.post + "/users/" + data.user)
         .then((res) => {
-          this.ratingPost = res.data;
+            console.log(res.data);
+          this.ratingPost = res.data.res;
+          this.rating = res.data.rating;
         })
         .catch((err) => {
           console.log(err);

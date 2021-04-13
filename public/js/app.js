@@ -2156,44 +2156,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ["post"],
   data: function data() {
     return {
-      rating: 3,
+      rating: 0,
       ratingPost: null,
       voteRating: 0
     };
   },
   created: function created() {
-    this.getRating(this.post.id);
+    this.getRating({
+      post: this.post.id,
+      user: this.user.id
+    });
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(["deletePost", "setShowModal"])), {}, {
-    getRating: function getRating(rating) {
+    getRating: function getRating(data) {
       var _this = this;
 
-      axios.get("/api/ratings/" + rating).then(function (res) {
-        _this.ratingPost = res.data;
-        console.log("setRating", res.data);
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    getVote: function getVote(data) {
-      var _this2 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var vote;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log("setVote", data);
+                console.log(data);
+                _context.next = 3;
+                return axios.get("/api/ratings/" + data.post + "/users/" + data.user).then(function (res) {
+                  console.log(res.data);
+                  _this.ratingPost = res.data.res;
+                  _this.rating = res.data.rating;
+                })["catch"](function (err) {
+                  console.log(err);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getVote: function getVote(data) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var vote;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
                 vote = new FormData();
                 vote.append("rating", data.rating);
 
                 if (!_this2.user) {
-                  _context.next = 6;
+                  _context2.next = 5;
                   break;
                 }
 
-                _context.next = 6;
+                _context2.next = 5;
                 return axios.post("/api/voting/" + data.post + "/users/" + data.user, vote).then(function (res) {
                   _this2.voteRating = res.data;
                   alert(res.data);
@@ -2201,12 +2219,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   console.log(err);
                 });
 
-              case 6:
+              case 5:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
     shortText: function shortText(str) {
@@ -2235,8 +2253,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)("auth", ["user"])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(["ratingAVG"])), {}, {
     authorization: function authorization() {
-      console.log("user for role ", this.user);
-
       if (this.user) {
         if (this.user.role_id === 1) {
           return true;
@@ -2338,9 +2354,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     NavMenu: _NavMenu_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   name: "VueHeader",
-  mounted: function mounted() {
-    console.log("current user is ", this.user);
-  },
+  mounted: function mounted() {},
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)("auth", ["sendLogoutRequest"])),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)("auth", ["user"]))
 });
@@ -3012,7 +3026,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(["getCategories", "createPost"])), {}, {
     selectFile: function selectFile(event) {
       this.file = event.target.files[0];
-      console.log(this.file);
     },
     sendPost: function sendPost(id) {
       var form = new FormData();
@@ -3021,10 +3034,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       form.append("published_at", document.getElementsByName("published_at")[0].value);
       form.append("category_id", this.selectedCategory);
       form.append("content", document.getElementsByName("content")[0].value);
-      console.log(document.getElementsByName("title")[0].value);
-      console.log(document.getElementsByName("published_at")[0].value);
-      console.log(this.selectedCategory);
-      console.log(document.getElementsByName("content")[0].value);
       this.createPost({
         user_id: id,
         form: form
@@ -3164,7 +3173,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(["getCategories", "editPost", "getPost"])), {}, {
     selectFile: function selectFile(event) {
       this.file = event.target.files[0];
-      console.log(this.file);
     },
     updatePost: function updatePost(id) {
       var form = new FormData();
@@ -3197,7 +3205,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     "$route.path": function $routePath() {
-      console.log(this.$route.params.id);
       this.getAuthorPosts(this.user_id);
     }
   }
@@ -3386,7 +3393,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(["authorPost", "showModal"])),
   watch: {
     "$route.path": function $routePath() {
-      console.log(this.$route.params.id);
       this.getOrderedAuthor(this.user_id);
     }
   }
@@ -3474,7 +3480,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(["categoriesPost", "showModal"])),
   watch: {
     "$route.path": function $routePath() {
-      console.log(this.$route.params.id);
       this.getOrderCategories();
     }
   }
@@ -3575,7 +3580,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(["singlePost"])),
   watch: {
     "$route.path": function $routePath() {
-      console.log(this.$route.params.id);
       this.getPost(this.id);
     }
   }
@@ -3642,7 +3646,6 @@ _router__WEBPACK_IMPORTED_MODULE_1__.default.beforeEach( /*#__PURE__*/function (
 
           case 3:
             user = _context.sent;
-            console.log('user', user);
 
             if (requiresAuth && !user) {
               next('/');
@@ -3650,7 +3653,7 @@ _router__WEBPACK_IMPORTED_MODULE_1__.default.beforeEach( /*#__PURE__*/function (
               next();
             }
 
-          case 6:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -3713,10 +3716,8 @@ __webpack_require__.r(__webpack_exports__);
   actions: {
     getUserData: function getUserData(_ref) {
       var commit = _ref.commit;
-      console.log('I`m here');
       axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/user").then(function (response) {
         commit("setUserData", response.data);
-        console.log('setUserData', response.data);
       })["catch"](function () {
         localStorage.removeItem("authToken");
       });
@@ -4217,15 +4218,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _auth_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth.js */ "./resources/js/auth.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
+vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vuex__WEBPACK_IMPORTED_MODULE_3__.default);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
   state: {
     msg: '',
@@ -4351,20 +4352,16 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
     },
     getCategoryPost: function getCategoryPost(_ref2, data) {
       var commit = _ref2.commit;
-      console.log('setCategoryPosts 1', data);
       axios.get("/api/categoryPosts/".concat(data.category_id, "/?page=").concat(data.page)).then(function (res) {
         commit('setCategoryPosts', res.data);
-        console.log('setCategoryPosts 2', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
     },
     getAuthorPosts: function getAuthorPosts(_ref3, data) {
       var commit = _ref3.commit;
-      console.log('setAuthorPosts', data);
       axios.get("/api/authorPosts/".concat(data.user_id, "/?page=").concat(data.page)).then(function (res) {
         commit('setAuthorPosts', res.data);
-        console.log('setAuthorPosts', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4372,10 +4369,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
     getPost: function getPost(_ref4) {
       var commit = _ref4.commit;
       var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-      console.log(id);
       axios.get('/api/single/' + id).then(function (res) {
         commit('setPost', res.data);
-        console.log('setPost', res.data);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4408,7 +4403,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
       var commit = _ref8.commit;
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
             name: "authorPostsID",
             params: {
               user_id: data.user_id
@@ -4421,10 +4416,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
     },
     editPost: function editPost(_ref9, data) {
       var commit = _ref9.commit;
-      console.log('Edit 2', data);
       axios.post('/api/posts', data.form).then(function (res) {
         if (res.status == 201) {
-          _router__WEBPACK_IMPORTED_MODULE_2__.default.push({
+          _router__WEBPACK_IMPORTED_MODULE_1__.default.push({
             name: "singleID",
             params: {
               id: data.post_id
@@ -4458,7 +4452,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__.default.Store({
     }
   },
   modules: {
-    auth: _auth_js__WEBPACK_IMPORTED_MODULE_1__.default
+    auth: _auth_js__WEBPACK_IMPORTED_MODULE_0__.default
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
@@ -44086,7 +44080,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.rating > 0
+            _vm.rating
               ? _c("div", [_vm._v("Your Rating " + _vm._s(_vm.rating))])
               : _vm._e()
           ])

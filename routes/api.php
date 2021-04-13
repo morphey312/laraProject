@@ -37,7 +37,7 @@ Route::get('single/{id}', [PostController::class, 'post']);
 
 Route::get('categories', [CategoryController::class, 'get']);
 
-Route::get('ratings/{rating}', [VoteController::class, 'rating']);
+Route::get('ratings/{rating}/users/{user}', [VoteController::class, 'rating']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('voting/{vote}/users/{user}', [VoteController::class, 'vote']);
